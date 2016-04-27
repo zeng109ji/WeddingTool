@@ -1,0 +1,12 @@
+<menu xmlns:shop="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.stone.shop.user.ui.activity.AddressActivity">
+
+    <item
+        android:id="@+id/action_add"
+        android:icon="@drawable/ic_menu_add"
+        android:title="@string/text_btn_add"
+        shop:showAsAction="always|withText" />
+
+</menu>

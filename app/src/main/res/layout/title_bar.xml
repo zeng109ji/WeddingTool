@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/height_title_bar"
+    android:background="#ccDEDEDE">
+
+    <Button
+        android:id="@+id/titlebar_left_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:textColor="@color/bg_color_first"
+        android:background="#00FFFFFF"
+        android:typeface="monospace" />
+
+    <TextView
+        android:id="@+id/titlebar_title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textColor="@color/bg_color_first"
+        android:typeface="monospace"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/titlebar_right_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:textColor="@color/bg_color_first"
+        android:background="#00FFFFFF"
+        android:layout_alignParentRight="true" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/bg_color_second_deep"/>
+</RelativeLayout>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="TitleBarViewAttrs">
+        <attr name="titleText" format="reference" />
+        <attr name="leftBtnText" format="reference" />
+        <attr name="rightBtnText" format="reference" />
+        <attr name="leftBtnImg" format="reference" />
+        <attr name="rightBtnImg" format="reference" />
+    </declare-styleable>
+
+</resources>

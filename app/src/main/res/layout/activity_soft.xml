@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:stonekity="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/text_color_white"
+    android:orientation="vertical">
+
+    <com.stone.shop.base.widget.TitleBarView
+        android:id="@+id/titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        stonekity:titleText="@string/title_activity_soft_about"
+        stonekity:leftBtnText="@string/text_btn_back">
+    </com.stone.shop.base.widget.TitleBarView>
+
+
+    <ListView
+        android:id="@+id/lv_mine_soft"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:divider="#88DCDCDC"
+        android:dividerHeight="0.5dp"
+        android:scrollbars="none"></ListView>
+
+</LinearLayout>

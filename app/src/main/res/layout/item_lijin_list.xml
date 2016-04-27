@@ -1,0 +1,41 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:layout_marginTop="20dip"
+    android:minHeight="45dip">
+
+    <TextView
+        android:id="@+id/lijin_name"
+        android:layout_width="100dp"
+        android:layout_height="20dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:textSize="15dp"
+        android:textColor="@color/font_gray"/>
+    <TextView
+        android:id="@+id/lijin_money"
+        android:layout_width="125dp"
+        android:layout_height="22dp"
+        android:singleLine="true"
+        android:textSize="15dp"
+        android:layout_centerVertical="true"
+        android:drawableLeft="@drawable/money"
+        android:layout_toRightOf="@+id/lijin_name"
+        android:layout_toEndOf="@+id/lijin_name" />
+
+    <TextView
+        android:id="@+id/lijin_back"
+        android:text="礼金未还"
+        android:layout_width="80dp"
+        android:layout_height="18dp"
+        android:singleLine="true"
+        android:textSize="12dp"
+        android:layout_centerVertical="true"
+        android:textColor="@color/font_gray"
+        android:layout_alignTop="@+id/lijin_money"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+
+</RelativeLayout>

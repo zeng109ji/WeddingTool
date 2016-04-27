@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F6F5F3"
+    android:layout_centerVertical="true"
+    android:orientation="vertical">
+
+    <!--<include-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="50dp"-->
+    <!--layout="@layout/header_finder" />-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cv_campus_jiehunrenwu"
+            android:layout_width="0dp"
+            android:layout_height="95dp"
+            android:layout_margin="5dp"
+            card_view:cardCornerRadius="4dp"
+            android:layout_weight="1">
+
+
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="15dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ic_hbut"
+                android:contentDescription="Btn Icon"
+                app:border_width="1dp"
+                app:border_color="#FFFFFF" />
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="15dp"
+                android:visibility="gone"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ic_hbut"
+                android:contentDescription="Btn Icon" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_gravity="bottom"
+                android:gravity="center_horizontal"
+                android:text="@string/campus_jhrenwu"
+                android:textColor="#696969"
+                android:textSize="14sp" />
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cv_campus_jiehunyusuan"
+            android:layout_width="0dp"
+            android:layout_height="95dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1">
+
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="15dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ic_hbut"
+                android:contentDescription="Btn Icon"
+                app:border_width="1dp"
+                app:border_color="#FFFFFF" />
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="15dp"
+                android:visibility="gone"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ic_hbut"
+                android:contentDescription="Btn Icon" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_gravity="bottom"
+                android:gravity="center_horizontal"
+                android:text="@string/campus_jhyusuan"
+                android:textColor="#696969"
+                android:textSize="14sp" />
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="95dp"
+            android:layout_margin="5dp"
+            android:visibility="gone"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="15dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ic_finder_lucky"
+                android:contentDescription="Btn Icon" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_gravity="bottom"
+                android:gravity="center_horizontal"
+                android:text="每日一抽"
+                android:textColor="#696969"
+                android:textSize="14sp" />
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cv_campus_jiehundengji"
+            android:layout_width="0dp"
+            android:layout_height="95dp"
+            android:layout_margin="5dp"
+            card_view:cardCornerRadius="4dp"
+            android:layout_weight="1">
+
+
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="15dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ic_hbut"
+                android:contentDescription="Btn Icon"
+                app:border_width="1dp"
+                app:border_color="#FFFFFF" />
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="15dp"
+                android:visibility="gone"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ic_hbut"
+                android:contentDescription="Btn Icon" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_gravity="bottom"
+                android:gravity="center_horizontal"
+                android:text="@string/campus_jhdengji"
+                android:textColor="#696969"
+                android:textSize="14sp" />
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cv_campus_jiehunriqi"
+            android:layout_width="0dp"
+            android:layout_height="95dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1">
+
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="15dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ic_hbut"
+                android:contentDescription="Btn Icon"
+                app:border_width="1dp"
+                app:border_color="#FFFFFF" />
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="15dp"
+                android:visibility="gone"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ic_hbut"
+                android:contentDescription="Btn Icon" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_gravity="bottom"
+                android:gravity="center_horizontal"
+                android:text="@string/campus_jhriqi"
+                android:textColor="#696969"
+                android:textSize="14sp" />
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cv_campus_jiehunmingdan"
+            android:layout_width="0dp"
+            android:layout_height="95dp"
+            android:layout_margin="5dp"
+            card_view:cardCornerRadius="4dp"
+            android:layout_weight="1">
+
+
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="15dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ic_hbut"
+                android:contentDescription="Btn Icon"
+                app:border_width="1dp"
+                app:border_color="#FFFFFF" />
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="15dp"
+                android:visibility="gone"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ic_hbut"
+                android:contentDescription="Btn Icon" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_gravity="bottom"
+                android:gravity="center_horizontal"
+                android:text="@string/campus_jhmingdan"
+                android:textColor="#696969"
+                android:textSize="14sp" />
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cv_campus_jiehunliucheng"
+            android:layout_width="0dp"
+            android:layout_height="95dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1">
+
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="15dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ic_hbut"
+                android:contentDescription="Btn Icon"
+                app:border_width="1dp"
+                app:border_color="#FFFFFF" />
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="15dp"
+                android:visibility="gone"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ic_hbut"
+                android:contentDescription="Btn Icon" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_gravity="bottom"
+                android:gravity="center_horizontal"
+                android:text="@string/campus_jhliucheng"
+                android:textColor="#696969"
+                android:textSize="14sp" />
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cv_campus_jiehunjiuxi"
+            android:layout_width="0dp"
+            android:layout_height="95dp"
+            android:layout_margin="5dp"
+            card_view:cardCornerRadius="4dp"
+            android:layout_weight="1">
+
+
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="15dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ic_hbut"
+                android:contentDescription="Btn Icon"
+                app:border_width="1dp"
+                app:border_color="#FFFFFF" />
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="15dp"
+                android:visibility="gone"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ic_hbut"
+                android:contentDescription="Btn Icon" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_gravity="bottom"
+                android:gravity="center_horizontal"
+                android:text="@string/campus_jhjiuxi"
+                android:textColor="#696969"
+                android:textSize="14sp" />
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cv_campus_jiehunlijin"
+            android:layout_width="0dp"
+            android:layout_height="95dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1">
+
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="15dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ic_hbut"
+                android:contentDescription="Btn Icon"
+                app:border_width="1dp"
+                app:border_color="#FFFFFF" />
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="15dp"
+                android:visibility="gone"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ic_hbut"
+                android:contentDescription="Btn Icon" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_gravity="bottom"
+                android:gravity="center_horizontal"
+                android:text="@string/campus_jhlijin"
+                android:textColor="#696969"
+                android:textSize="14sp" />
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+
+    <!--
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/cv_campus_bxt_news"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_margin="10dp"
+        card_view:cardCornerRadius="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textAppearance="?android:textAppearanceLarge"
+                android:text="@string/campus_bxt_news" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="@string/campus_bxt_news_tips" />
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/cv_campus_2nd_trade"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_margin="10dp"
+        card_view:cardCornerRadius="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textAppearance="?android:textAppearanceLarge"
+                android:text="@string/campus_2nd_trade" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="@string/campus_2nd_trade_tips" />
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+    -->
+</LinearLayout>

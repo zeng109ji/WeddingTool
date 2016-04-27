@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+
+	<com.zj.weddingtool.weddingtool.model.borderText.BorderText
+	    android:layout_width="fill_parent" 
+	    android:layout_height="38dp"
+        android:gravity="center"
+        android:id="@+id/toptext"
+        android:textSize="15sp"
+        android:drawableLeft="@drawable/previous_year"
+        android:drawableRight="@drawable/next_year"
+        android:paddingLeft="35dp"
+        android:paddingRight="35dp"
+	/>
+	<ViewFlipper android:id="@+id/flipper"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content" />
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:paddingTop="15dp"
+		android:layout_gravity="center_horizontal"
+		android:orientation="horizontal">
+		<TextView
+			android:layout_width="100dp"
+			android:layout_height="30dp"
+			android:text="我的婚期："
+			android:textSize="20dp"
+			android:id="@+id/texthunshao" />
+		<TextView
+			android:layout_width="140dp"
+			android:layout_height="30dp"
+			android:paddingLeft="10dp"
+			android:textSize="25dp"
+			android:id="@+id/texthunshaoriqi"
+			android:textColor="@color/color_yellow"/>
+	</LinearLayout>
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:paddingTop="15dp"
+		android:paddingLeft="10dp"
+		android:orientation="horizontal">
+		<TextView
+			android:layout_width="100dp"
+			android:layout_height="20dp"
+			android:text="建议完成时间:"
+			android:textSize="15dp"
+			android:id="@+id/text1"/>
+	</LinearLayout>
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:paddingTop="10dp"
+		android:paddingLeft="10dp"
+		android:orientation="horizontal">
+		<TextView
+			android:layout_width="70dp"
+			android:layout_height="20dp"
+			android:text="婚纱照 --"
+			android:textSize="13dp"
+			android:id="@+id/text20" />
+		<TextView
+			android:layout_width="100dp"
+			android:layout_height="30dp"
+			android:textSize="13dp"
+			android:id="@+id/text21"
+			android:textColor="@color/color_yellow"/>
+
+		<TextView
+			android:layout_width="90dp"
+			android:layout_height="20dp"
+			android:paddingLeft="10dp"
+			android:text="婚礼百货 --"
+			android:textSize="13dp"
+			android:id="@+id/text30" />
+		<TextView
+			android:layout_width="100dp"
+			android:layout_height="30dp"
+			android:textSize="13dp"
+			android:id="@+id/text31"
+			android:textColor="@color/color_yellow"/>
+	</LinearLayout>
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:paddingTop="10dp"
+		android:paddingLeft="10dp"
+		android:orientation="horizontal">
+		<TextView
+			android:layout_width="70dp"
+			android:layout_height="20dp"
+			android:text="婚    戒 --"
+			android:textSize="13dp"
+			android:id="@+id/text40" />
+		<TextView
+			android:layout_width="100dp"
+			android:layout_height="30dp"
+			android:textSize="13dp"
+			android:id="@+id/text41"
+			android:textColor="@color/color_yellow"/>
+
+		<TextView
+			android:layout_width="90dp"
+			android:layout_height="20dp"
+			android:paddingLeft="10dp"
+			android:text="礼        服 --"
+			android:textSize="13dp"
+			android:id="@+id/text50" />
+		<TextView
+			android:layout_width="100dp"
+			android:layout_height="30dp"
+			android:textSize="13dp"
+			android:id="@+id/text51"
+			android:textColor="@color/color_yellow"/>
+	</LinearLayout>
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:paddingTop="10dp"
+		android:paddingLeft="10dp"
+		android:orientation="horizontal">
+		<TextView
+			android:layout_width="70dp"
+			android:layout_height="20dp"
+			android:text="喜    宴 --"
+			android:textSize="13dp"
+			android:id="@+id/text60" />
+		<TextView
+			android:layout_width="100dp"
+			android:layout_height="30dp"
+			android:textSize="13dp"
+			android:id="@+id/text61"
+			android:textColor="@color/color_yellow"/>
+
+		<TextView
+			android:layout_width="90dp"
+			android:layout_height="20dp"
+			android:paddingLeft="10dp"
+			android:text="婚        车 --"
+			android:textSize="13dp"
+			android:id="@+id/text70" />
+		<TextView
+			android:layout_width="100dp"
+			android:layout_height="30dp"
+			android:textSize="13dp"
+			android:id="@+id/text71"
+			android:textColor="@color/color_yellow"/>
+	</LinearLayout>
+</LinearLayout>

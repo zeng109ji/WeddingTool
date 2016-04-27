@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="sexs">
+        <item>男</item>
+        <item>女</item>
+        <item>未知</item>
+    </string-array>
+
+    <string-array name="jhrenwu_tags">
+        <item>确定结婚:</item>
+        <item>婚宴场所:</item>
+        <item>婚纱摄影:</item>
+        <item>婚庆事项（包括四大金刚）:</item>
+        <item>服装:</item>
+        <item>名单:</item>
+        <item>婚品购置:</item>
+        <item>蜜月:</item>
+    </string-array>
+
+    <string-array name="jhrenwu">
+        <item>确定结婚:</item>
+        <item>双方父母见面商议结婚相关事宜</item>
+        <item>确定结婚日期和地点</item>
+        <item>商议婚礼开支分配</item>
+        <item>办理结婚登记手续</item>
+        <item>选购钻戒对戒</item>
+        <item>婚宴场所:</item>
+        <item>选定婚宴酒店</item>
+        <item>确定酒席桌数及婚宴菜单</item>
+        <item>制订婚宴作为安排表</item>
+        <item>婚纱摄影:</item>
+        <item>定婚纱照商家</item>
+        <item>挑选婚纱照当天新娘和新郎的服装</item>
+        <item>为拍摄前准备，新娘开始皮肤保养，新郎剪头发</item>
+        <item>拍婚纱照</item>
+        <item>确认定稿后拿婚纱照照片相册</item>
+        <item>婚庆事项（包括四大金刚）:</item>
+        <item>限定婚庆公司</item>
+        <item>与婚庆公司到婚宴酒店进行实地查看确定婚礼布置，协商婚庆公司的各项服务</item>
+        <item>选定主持司仪和乐队</item>
+        <item>选定婚礼摄像师，商议价格及服务事项</item>
+        <item>选定婚礼跟拍摄影师，商议价格及服务事项</item>
+        <item>与主持人、司仪沟通婚礼仪式的要求</item>
+        <item>预约化妆师，进行试妆，确定婚礼当天的造型</item>
+        <item>选定租/借婚车，确定婚礼当天的婚车安排</item>
+        <item>准备双方及双方父母的发言稿</item>
+        <item>服装:</item>
+        <item>选定新人婚纱礼服、西装鞋子</item>
+        <item>选定伴郎伴娘礼服</item>
+        <item>选定父母礼服</item>
+        <item>选定花童礼服</item>
+        <item>准备新娘头纱、新娘包及其他配饰</item>
+        <item>名单:</item>
+        <item>选定伴娘、伴郎</item>
+        <item>确定参加婚礼的亲朋好友名单</item>
+        <item>确定不参加婚礼但需寄送喜糖的亲朋好友名单</item>
+        <item>婚品购置:</item>
+        <item>购买床上用品。布置新房用品</item>
+        <item>购买婚礼所需的喜字。红包。喜帖。烟酒、喜糖、鞭炮、回礼等物品</item>
+        <item>准备崭新的钞票与红包</item>
+        <item>预订鲜花、花束及婚礼相关装饰用品</item>
+        <item>预订婚礼蛋糕及甜点</item>
+        <item>蜜月:</item>
+        <item>安排蜜月时间与行程</item>
+        <item>准备蜜月行李物品</item>
+        <item>预订蜜月酒店、机票/车票</item>
+    </string-array>
+
+    <string-array name="jhyusuan">
+        <item>喜      宴</item>
+        <item>婚  纱  照</item>
+        <item>婚      戒</item>
+        <item>婚 礼 策 划</item>
+        <item>跟      妆</item>
+        <item>主持跟拍摄影</item>
+        <item>礼      服</item>
+        <item>婚 礼 百 货</item>
+        <item>婚      车</item>
+    </string-array>
+
+    <string-array name="jhdengjichu1">
+        <item>江岸区婚姻登记处</item>
+        <item>江岸区绿缘路28号1楼</item>
+        <item>周一至周五（法定节假日除外）</item>
+        <item>上午9:00-11:30 下午14：00-17:30 周六9:00-16:00</item>
+        <item>027-82414472</item>
+        <item>30.60796</item>
+        <item>114.304523</item>
+    </string-array>
+
+    <string-array name="jhdengjichu2">
+        <item>江汉区婚姻登记处</item>
+        <item>江汉区新华下路13号政务中心2楼</item>
+        <item>周一至周五（法定节假日除外）</item>
+        <item>上午9:00-11:30 下午14：00-17:30 周六9:00-16:00</item>
+        <item>027-85767006</item>
+        <item>30.606789</item>
+        <item>114.277661</item>
+    </string-array>
+
+    <string-array name="jhdengjichu3">
+        <item>汉阳区婚姻登记处</item>
+        <item>汉阳区墨水湖105号3楼</item>
+        <item>周一至周五（法定节假日除外）</item>
+        <item>上午9:00-11:30 下午14：00-17:30 周六9:00-16:00</item>
+        <item>027-84635473</item>
+        <item>30.558287</item>
+        <item>114.238035</item>
+    </string-array>
+
+    <string-array name="jhdengjichu4">
+        <item>武昌区婚姻登记处</item>
+        <item>武昌区凤凰大楼西楼12楼</item>
+        <item>周一至周五（法定节假日除外）</item>
+        <item>上午9:00-11:30 下午14：00-17:30 周六9:00-16:00</item>
+        <item>027-88938919</item>
+        <item>30.559308</item>
+        <item>114.321861</item>
+    </string-array>
+
+    <string-array name="jhdengjichu5">
+        <item>青山区婚姻登记处</item>
+        <item>青山区友谊大道1140-1142</item>
+        <item>周一至周五（法定节假日除外）</item>
+        <item>上午9:00-11:30 下午14：00-17:30 周六9:00-16:00</item>
+        <item>027-68865250</item>
+        <item>30.625122</item>
+        <item>114.400626</item>
+    </string-array>
+
+    <string-array name="jhdengjichu6">
+        <item>洪山区婚姻登记处</item>
+        <item>洪山区文治街499号</item>
+        <item>周一至周五（法定节假日除外）</item>
+        <item>上午9:00-11:30 下午14：00-17:30 周六9:00-16:00</item>
+        <item>027-87678568</item>
+        <item>30.506376</item>
+        <item>114.347873</item>
+    </string-array>
+
+    <string-array name="jhdengjichu7">
+        <item>武汉市硚口区婚姻登记处</item>
+        <item>硚口区集贤路特1号华通花园2号民政局3楼</item>
+        <item>周一至周五（法定节假日除外）</item>
+        <item>上午9:00-11:30 下午14：20-17:00 周六9:00-12:00；14:30-16:30</item>
+        <item>027-83792740</item>
+        <item>30.579347</item>
+        <item>114.268198</item>
+    </string-array>
+
+    <string-array name="jhdengjichu8">
+        <item>东西湖区婚姻登记处</item>
+        <item>东西湖区二雅路海景大厦政务中心2楼</item>
+        <item>周一至周五（法定节假日除外）</item>
+        <item>上午9:00-11:30 下午14：00-17:30 周六9:00-16:00</item>
+        <item>027-83081079</item>
+        <item>30.636744</item>
+        <item>114.157122</item>
+    </string-array>
+
+    <string-array name="jhdengjichu9">
+        <item>汉南区婚姻登记处</item>
+        <item>汉南区薇湖西路400号汉南区民政局1楼</item>
+        <item>周一至周五（法定节假日除外）</item>
+        <item>上午9:00-11:30 下午14：00-17:30 周六9:00-16:00</item>
+        <item>027-84758055</item>
+        <item>30.313053</item>
+        <item>114.080326</item>
+    </string-array>
+
+    <string-array name="jhdengjichu10">
+        <item>蔡甸区婚姻登记处</item>
+        <item>蔡甸区蔡甸大街981号蔡甸区民政局2楼</item>
+        <item>周一至周五（法定节假日除外）</item>
+        <item>上午9:00-11:30 下午14：00-17:30 周六9:00-16:00</item>
+        <item>027-69844765</item>
+        <item>30.57873</item>
+        <item>114.042597</item>
+    </string-array>
+
+    <string-array name="jhdengjichu11">
+        <item>江夏区婚姻登记处</item>
+        <item>江夏区纸坊街文化路35号江夏区民政局1楼</item>
+        <item>周一至周五（法定节假日除外）</item>
+        <item>上午9:00-11:30 下午14：00-17:30 周六9:00-16:00</item>
+        <item>027-81819015</item>
+        <item>30.369724</item>
+        <item>114.328986</item>
+    </string-array>
+
+    <string-array name="jhdengjichu12">
+        <item>黄陂区婚姻登记处</item>
+        <item>黄陂区百秀街183号民政局大楼3楼</item>
+        <item>周一至周五（法定节假日除外）</item>
+        <item>上午9:00-11:30 下午14：00-17:30 周六9:00-16:00</item>
+        <item>027-61004200</item>
+        <item>30.888058</item>
+        <item>114.379242</item>
+    </string-array>
+
+    <string-array name="jhdengjichu13">
+        <item>新洲区婚姻登记处</item>
+        <item>新洲区齐安大道326号社区服务大楼4楼</item>
+        <item>周一至周五（法定节假日除外）</item>
+        <item>上午9:00-11:30 下午14：00-17:30 周六9:00-16:00</item>
+        <item>027-86925551</item>
+        <item>30.848165</item>
+        <item>114.810671</item>
+    </string-array>
+
+    <string-array name="jhdengjichu14">
+        <item>武汉开发区婚姻登记处</item>
+        <item>武汉市经济开发区珠山湖大道振华路47号</item>
+        <item>周一至周五（法定节假日除外）</item>
+        <item>上午9:00-11:30 下午14：00-17:30 周六9:00-16:00</item>
+        <item>027-84896561</item>
+        <item>30.486161</item>
+        <item>114.168697</item>
+    </string-array>
+
+    <string-array name="jhdengjichu15">
+        <item>东湖风景区婚姻登记处</item>
+        <item>欢乐大道东湖建材市场3栋2楼</item>
+        <item>周一至周五（法定节假日除外）</item>
+        <item>上午9:00-11:30 下午14：00-17:30 周六9:00-16:00</item>
+        <item>027-86773376</item>
+        <item>30.599349</item>
+        <item>114.392645</item>
+    </string-array>
+
+    <string-array name="jhdengjichu16">
+        <item>东湖开发区婚姻登记处</item>
+        <item>武汉市珞瑜路546号东湖新技术开发区管委会A馆1楼</item>
+        <item>周一至周五（法定节假日除外）</item>
+        <item>上午9:00-11:30 下午14：00-17:30 周六9:00-16:00</item>
+        <item>027-67880551</item>
+        <item>30.520991</item>
+        <item>114.392905</item>
+    </string-array>
+
+    <array name="jhdengjichuall">
+        <item>@array/jhdengjichu1</item>
+        <item>@array/jhdengjichu2</item>
+        <item>@array/jhdengjichu3</item>
+        <item>@array/jhdengjichu4</item>
+        <item>@array/jhdengjichu5</item>
+        <item>@array/jhdengjichu6</item>
+        <item>@array/jhdengjichu7</item>
+        <item>@array/jhdengjichu8</item>
+        <item>@array/jhdengjichu9</item>
+        <item>@array/jhdengjichu10</item>
+        <item>@array/jhdengjichu11</item>
+        <item>@array/jhdengjichu12</item>
+        <item>@array/jhdengjichu13</item>
+        <item>@array/jhdengjichu14</item>
+        <item>@array/jhdengjichu15</item>
+        <item>@array/jhdengjichu16</item>
+    </array>
+
+    <string-array name="jhdangtian_tags">
+        <item>新人准备流程</item>
+        <item>接亲流程</item>
+    </string-array>
+
+    <string-array name="jhdangtian_liucheng1">
+        <item>新人准备流程--7:00</item>
+        <item>新郎新娘起床准备化妆，跟妆师到位</item>
+        <item>XX;XX</item>
+    </string-array>
+
+    <string-array name="jhdangtian_liucheng2">
+        <item>新人准备流程--8:00</item>
+        <item>新郎做好发型，跟拍摄像到位</item>
+        <item>XX;XX</item>
+    </string-array>
+
+    <string-array name="jhdangtian_liucheng3">
+        <item>接亲流程--10:00</item>
+        <item>婚车到位，婚车装饰到位</item>
+        <item>XX;XX</item>
+    </string-array>
+
+    <string-array name="jhdangtian_liucheng4">
+        <item>接亲流程--10:30</item>
+        <item>所有婚车到达新娘家</item>
+        <item>XX;XX</item>
+    </string-array>
+
+    <array name="jhdangtian_liucheng">
+        <item>@array/jhdangtian_liucheng1</item>
+        <item>@array/jhdangtian_liucheng2</item>
+        <item>@array/jhdangtian_liucheng3</item>
+        <item>@array/jhdangtian_liucheng4</item>
+    </array>
+
+    <string-array name="pay_methods">
+        <item>货到付款(RMB)</item>
+        <item>支付宝</item>
+    </string-array>
+</resources>

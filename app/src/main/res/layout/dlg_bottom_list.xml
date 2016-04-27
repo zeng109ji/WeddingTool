@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:id="@+id/dialog_frame"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/bg_color_second_deep">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="bottom">
+
+        <FrameLayout
+            android:id="@+id/top"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+        </FrameLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_divider" />
+
+        <ListView
+            android:id="@+id/bottom_list"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:cacheColorHint="@null"
+            android:divider="@color/color_divider"
+            android:dividerHeight="1dp"
+            android:fadeScrollbars="false"
+            android:fadingEdge="none"
+            android:listSelector="@null"></ListView>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_divider" />
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/cancel"
+        android:layout_width="fill_parent"
+        android:layout_height="46dp"
+        android:layout_gravity="bottom"
+        android:background="@color/text_color_white"
+        android:textSize="16sp"
+        android:textColor="@color/bg_color_first"
+        android:text="取 消" />
+
+</LinearLayout>

@@ -1,0 +1,81 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:layout_marginTop="20dip"
+    android:minHeight="45dip">
+
+
+    <TextView
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textSize="20dp"
+        android:id="@+id/djcname"
+        android:textColor= "@color/font_black"
+        android:layout_marginTop="20dip"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textSize="14dp"
+        android:id="@+id/djcaddr"
+        android:layout_below="@+id/djcname"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textSize="14dp"
+        android:id="@+id/djctimeday"
+        android:layout_below="@+id/djcaddr"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textSize="14dp"
+        android:id="@+id/djctimehour"
+        android:layout_below="@+id/djctimeday"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="42dp"
+        android:text="一键导航"
+        android:id="@+id/btn_daohang"
+        android:layout_below="@+id/djctimehour"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="42dp"
+        android:text="拨打电话："
+        android:id="@+id/btn_phone"
+        android:layout_alignTop="@+id/btn_daohang"
+        android:layout_toRightOf="@+id/btn_daohang"
+        android:layout_toEndOf="@+id/btn_daohang" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="80dp"
+        android:layout_height="36dp"
+        android:text="地图查看"
+        android:id="@+id/btn_map"
+        android:layout_marginTop="15dip"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+</RelativeLayout>

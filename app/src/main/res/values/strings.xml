@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+
+    <string name="app_name">他她工具</string>
+    <string name="app_slogan">不仅仅是工具</string>
+    <string name="app_version_name">他她工具｜测试版</string>
+    <string name="app_school_d">他她喜事</string>
+    <string name="app_copyright">© TaTaXiShi</string>
+
+    <string name="title_activity_login">登录</string>
+    <string name="title_activity_reset_password">找回密码</string>
+    <string name="title_activity_register">注册</string>
+    <string name="title_activity_mine">我</string>
+    <string name="title_activity_shop_cart">购物车</string>
+    <string name="title_activity_pay_order">结算订单</string>
+    <string name="title_activity_campus_finder">校园发现</string>
+    <string name="title_activity_pay_coder">打赏</string>
+    <string name="title_activity_mine_info">个人资料</string>
+    <string name="title_activity_mine_info_edit">修改个人资料</string>
+    <string name="title_activity_setting">设置</string>
+    <string name="title_activity_user_info">用户资料</string>
+    <string name="title_activity_soft_about">软件相关</string>
+    <string name="title_activity_feed_back">意见反馈</string>
+    <string name="title_activity_about">关于我们</string>
+    <string name="title_activity_weddingtool">结婚工具</string>
+
+    <string name="text_login_tips">曾棘测试</string>
+    <string name="text_auth_hbut_tips">当前版本为 曾棘测试</string>
+
+    <string name="text_btn_back">返回</string>
+    <string name="text_btn_done">确定</string>
+    <string name="text_btn_edit">编辑</string>
+    <string name="text_btn_save">保存</string>
+    <string name="text_btn_star">收藏</string>
+    <string name="text_btn_add">添加</string>
+    <string name="text_btn_sync">同步刷新</string>
+    <string name="text_btn_help">提示</string>
+    <string name="text_btn_submit">提交</string>
+    <string name="text_btn_cancel">取消</string>
+
+
+    <string name="campus_grade">曾棘测试1</string>
+    <string name="campus_schedule">曾棘测试2</string>
+    <string name="campus_auth_hbut">曾棘测试3</string>
+    <string name="campus_bxt_news">博学堂讲座预告</string>
+    <string name="campus_bxt_news_detail">讲座详情</string>
+    <string name="campus_bxt_news_tips">精彩永不错过，不要和传说中的学霸争</string>
+    <string name="campus_2nd_trade_tips">曾棘曾棘测试测试</string>
+
+    <string name="campus_jhrenwu">结婚任务</string>
+    <string name="campus_jhyusuan">结婚预算</string>
+    <string name="campus_jhdengji">结婚登记</string>
+    <string name="campus_jhriqi">我的婚期</string>
+    <string name="campus_jhmingdan">婚宴名单</string>
+    <string name="campus_jhliucheng">当日流程</string>
+    <string name="campus_jhjiuxi">宾客席位</string>
+    <string name="campus_jhlijin">礼金记账</string>
+
+    <string name="mine_info_label_icon">头像</string>
+    <string name="mine_info_label_nickname">昵称</string>
+    <string name="mine_info_label_sex">性别</string>
+    <string name="mine_info_label_phone">手机</string>
+
+    <string name="hint_mine_info_default">填写</string>
+    <string name="hint_mine_info_phont">重新验证</string>
+    <string name="hint_mine_info_qq">立即绑定</string>
+
+    <string name="renwu_xijie">name</string>
+    <string name="add_yusuan_item">新增费用</string>
+    <string name="del">删 除</string>
+
+</resources>

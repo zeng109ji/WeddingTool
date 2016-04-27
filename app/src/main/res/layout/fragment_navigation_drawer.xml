@@ -1,0 +1,354 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f8ffffff">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="20dp"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <!-- 个人资料 -->
+        <RelativeLayout
+            android:id="@+id/rl_nav_user_Info"
+            android:layout_width="match_parent"
+            android:layout_height="100dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/user_home_bg" />
+
+            <View
+                android:layout_width="53dp"
+                android:layout_height="53dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="14.5dp"
+                android:background="@drawable/navigation_user_sharow" />
+
+            <RelativeLayout
+                android:id="@+id/circleLayout"
+                android:layout_width="53dp"
+                android:layout_height="53dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:background="@drawable/navigation_user_sharow">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/img_mine_info_icon"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ic_xiaocai_download" />
+
+            </RelativeLayout>
+
+
+            <TextView
+                android:id="@+id/tv_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/circleLayout"
+                android:text=""
+                android:textColor="#ffffff"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_user_sign"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_user_name"
+                android:layout_marginTop="6dp"
+                android:layout_toRightOf="@id/circleLayout"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="一切皆有可能一切皆有可能一"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#6d7e96"
+                android:textSize="15sp"
+                android:visibility="gone" />
+
+        </RelativeLayout>
+
+
+        <!-- 粉丝｜关注 -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:padding="0.5dp"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:id="@+id/fansLayout"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/drawer_bg_color_normal"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="粉丝"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#6d7e96" />
+
+                <TextView
+                    android:id="@+id/fans"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="0"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#3bbd79" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="18dp"
+                android:layout_gravity="center_vertical"
+                android:background="@color/drawer_bg_color_divide" />
+
+            <LinearLayout
+                android:id="@+id/followsLayout"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="0.5dp"
+                android:layout_weight="1"
+                android:background="@color/drawer_bg_color_normal"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="关注"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#6d7e96" />
+
+                <TextView
+                    android:id="@+id/follows"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="0"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#3bbd79" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <!--  导航菜单  -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/rb_nav_shop_cart"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@drawable/drawer_selector_bg"
+                    android:button="@null"
+                    android:drawableLeft="@drawable/drawer_selector_0"
+                    android:drawablePadding="15dp"
+                    android:paddingEnd="0dp"
+                    android:paddingLeft="17dp"
+                    android:paddingRight="0dp"
+                    android:text="购物车"
+                    android:textColor="@drawable/drawer_selector_font"
+                    android:textSize="17sp" />
+
+
+                <com.readystatesoftware.viewbadger.BadgeView
+                    android:id="@+id/badge_order_car_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="12dp"
+                    android:background="@drawable/ic_notify_no_edge"
+                    android:text="0"
+                    android:gravity="center"
+                    android:visibility="gone" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="17dp"
+                android:paddingRight="12dp">
+
+                <RadioButton
+                    android:id="@+id/rb_nav_order_current"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@drawable/drawer_selector_bg"
+                    android:button="@null"
+                    android:drawableLeft="@drawable/drawer_selector_0"
+                    android:drawablePadding="15dp"
+                    android:text="当前订单"
+                    android:textColor="@drawable/drawer_selector_font"
+                    android:textSize="17sp" />
+
+
+                <com.readystatesoftware.viewbadger.BadgeView
+                    android:id="@+id/badge_order_cur_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:text="0"
+                    android:background="@drawable/ic_notify_no_edge"
+                    android:gravity="center"
+                    android:visibility="gone" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="17dp"
+                android:paddingRight="12dp">
+
+                <RadioButton
+                    android:id="@+id/rb_nav_order_history"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@drawable/drawer_selector_bg"
+                    android:button="@null"
+                    android:drawableLeft="@drawable/drawer_selector_0"
+                    android:drawablePadding="15dp"
+                    android:text="历史订单"
+                    android:textColor="@drawable/drawer_selector_font"
+                    android:textSize="17sp" />
+
+
+                <com.readystatesoftware.viewbadger.BadgeView
+                    android:id="@+id/badge_order_finish_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/ic_notify_no_edge"
+                    android:visibility="gone"
+                    android:text="0"
+                    android:gravity="center" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/rb_nav_campus"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@drawable/drawer_selector_bg"
+                    android:button="@null"
+                    android:drawableLeft="@drawable/ic_nav_campus"
+                    android:drawablePadding="15dp"
+                    android:paddingLeft="17dp"
+                    android:paddingRight="0dp"
+                    android:text="发现"
+                    android:textColor="@drawable/drawer_selector_font"
+                    android:textSize="17sp" />
+
+                <com.readystatesoftware.viewbadger.BadgeView
+                    android:id="@+id/badge_campus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="12dp"
+                    android:text=" New "
+                    android:background="@drawable/ic_notify_no_edge"
+                    android:gravity="center"
+                    android:visibility="invisible" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/rb_nav_soft_about"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@drawable/drawer_selector_bg"
+                    android:button="@null"
+                    android:checked="false"
+                    android:drawableLeft="@drawable/ic_nav_about_soft"
+                    android:drawablePadding="15dp"
+                    android:paddingLeft="17dp"
+                    android:paddingRight="0dp"
+                    android:text="软件相关"
+                    android:textColor="@drawable/drawer_selector_font"
+                    android:textSize="17sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/rb_nav_pay_coder"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@drawable/drawer_selector_bg"
+                    android:button="@null"
+                    android:checked="false"
+                    android:drawableLeft="@drawable/ic_nav_pay_dev"
+                    android:drawablePadding="15dp"
+                    android:paddingLeft="17dp"
+                    android:paddingRight="0dp"
+                    android:text="打赏开发者"
+                    android:textColor="@drawable/drawer_selector_font"
+                    android:textSize="17sp" />
+
+            </RelativeLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/divide_15_e5" />
+
+
+        </LinearLayout>
+
+
+        <!-- 设置 -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:src="@drawable/ic_setting_normal" />
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</ScrollView>

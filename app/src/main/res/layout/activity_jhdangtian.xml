@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/text_color_white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:orientation="horizontal">
+        <Button
+            android:text="编    辑"
+            android:id="@+id/itemedit"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:textSize="12dp"
+            android:textColor="@color/color_yellow"/>
+        <Button
+            android:text="分  享"
+            android:id="@+id/itemshare"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:textSize="12dp"
+            android:textColor="@color/color_yellow"/>
+    </LinearLayout>
+  <!--android:divider="#00000000"分割线隐藏-->
+    <!-- android:divider="@color/text_color_normal"
+     android:dividerHeight="1dp" -->
+  <!--   <ListView
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:id="@+id/listView_dangtian"
+         android:divider="#00000000"
+         android:layout_marginTop="0dp"
+         android:layout_gravity="center_horizontal"/>
+-->
+    <ExpandableListView
+        android:id="@+id/listView_dangtian"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:dividerHeight="10dp"
+        android:padding="10dp"
+        android:scrollbarStyle="outsideOverlay"
+        android:divider="#00000000"
+        >
+        <!--       android:cacheColorHint="#00000000"，这个设置拖动view时背景色
+              android:listSelector="#00000000" ，设置选中时的底色 -->
+    </ExpandableListView>
+ </LinearLayout>

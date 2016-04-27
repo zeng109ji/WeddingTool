@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/edit_day_process_dialog_view"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:minWidth="200dp"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:paddingBottom="30dp"
+    android:paddingTop="30dp">
+<!--
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="事宜："
+        android:id="@+id/textView" />
+
+    <EditText
+        android:id="@+id/change_things"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="45dp"
+        android:textSize="18sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="人员："
+        android:id="@+id/textView2" />
+
+    <EditText
+        android:id="@+id/change_people"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:editable="true"
+        android:minHeight="45dp"
+        android:textSize="18sp" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="是否删除此项流程"
+        android:checked="false"
+        android:id="@+id/isDelCurProcess" />
+        -->
+</LinearLayout>
