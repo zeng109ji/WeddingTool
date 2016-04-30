@@ -1,0 +1,29 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:layout_marginTop="20dip"
+    android:minHeight="45dip">
+
+    <TextView
+        android:id="@+id/guest_group_title"
+        android:layout_width="100dp"
+        android:layout_height="20dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="30dp"
+        android:textSize="15dp"
+        android:textColor="@color/font_green"/>
+
+    <CheckBox
+        android:id="@+id/guest_cx_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:checked="true"
+        android:button="@drawable/checkbox_bg4" />
+
+</RelativeLayout>

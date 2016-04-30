@@ -37,6 +37,12 @@ public class UserMe extends BmobUser implements Serializable {
     // 结婚预算项目
     private ArrayList<String> mymoneyItem;
 
+    // 宾客姓名+所属席位
+    private ArrayList<String> guestname;
+
+    // 每个宾客的人数
+    private ArrayList<Integer> guestnumber;
+
     // 当日流程分组
     private ArrayList<String> processgroup;
 
@@ -99,6 +105,22 @@ public class UserMe extends BmobUser implements Serializable {
 
     public ArrayList<String> getMymoneyItem() {
         return mymoneyItem;
+    }
+
+    public ArrayList<String> getGuestname() {
+        return guestname;
+    }
+
+    public void setGuestname(ArrayList<String> guestname) {
+        this.guestname = guestname;
+    }
+
+    public ArrayList<Integer> getGuestnumber() {
+        return guestnumber;
+    }
+
+    public void setGuestnumber(ArrayList<Integer> guestnumber) {
+        this.guestnumber = guestnumber;
     }
 
     public ArrayList<String> getProcessgroup() {

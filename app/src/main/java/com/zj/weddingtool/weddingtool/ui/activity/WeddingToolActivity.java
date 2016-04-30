@@ -68,8 +68,8 @@ public class WeddingToolActivity extends BaseActivity implements OnClickListener
     }
 
     private void campusJiehunmingdan() {
-    //    Intent intent = new Intent(WeddingToolActivity.this, StudentGradeActivity.class);
-    //    startActivity(intent);
+        Intent intent = new Intent(WeddingToolActivity.this, WDGuestListActivity.class);
+        startActivity(intent);
     }
 
     private void campusJiehunliucheng() {

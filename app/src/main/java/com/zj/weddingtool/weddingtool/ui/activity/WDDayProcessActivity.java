@@ -101,9 +101,12 @@ public class WDDayProcessActivity extends BaseActivity {
     //初始化视图控件
     private void initView() {
 
-        /* 实例化各个控件 */
-        //lv = (ListView) findViewById(R.id.listView_dangtian);
+        if(downloadFlag < 0) {
+            finish();
+            return;
+        }
 
+        /* 实例化各个控件 */
         elv = (ExpandableListView) findViewById(R.id.listView_dangtian);
 
         btn_edit = (Button) findViewById(R.id.itemedit);

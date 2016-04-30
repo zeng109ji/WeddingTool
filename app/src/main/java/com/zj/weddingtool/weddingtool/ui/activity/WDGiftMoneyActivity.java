@@ -41,7 +41,7 @@ import cn.bmob.v3.listener.UpdateListener;
  */
 public class WDGiftMoneyActivity extends BaseActivity {
 
-    public static final String TAG = "JHyusuanActivity";
+    public static final String TAG = "JHLiJinActivity";
     public static final String EXTRA_KEY_USER_ID = "";
 
     public ListEditTextAdapter mlAdapter;
