@@ -76,6 +76,8 @@ public class UserMe extends BmobUser implements Serializable {
     // 结婚日期
     private ArrayList<String> marrydate;
 
+    //用户手机
+    private String userphone;
     // 用户头像
     private BmobFile picUser;
 
@@ -85,6 +87,14 @@ public class UserMe extends BmobUser implements Serializable {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getUserphone() {
+        return userphone;
+    }
+
+    public void setUserphone(String userphone) {
+        this.userphone = userphone;
     }
 
     public ArrayList<Boolean> getCompleted() {

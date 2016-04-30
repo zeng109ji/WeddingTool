@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -191,13 +192,46 @@ public class WDGuestListActivity extends BaseActivity{
             @Override
             public void onSuccess(UserMe userme) {
 
-                guest_name = userme.getGuestname();
-                guest_number = userme.getGuestnumber();
+                String[] temp_name = {};
+                Integer[] temp_number = {};
 
-                if ((guest_name == null && guest_number == null)) {
+                ArrayList<String> list1 = new ArrayList<String>();
+                ArrayList<Integer> list2 = new ArrayList<Integer>();
+
+                list1 = userme.getGuestname();
+                list2 = userme.getGuestnumber();
+
+                if(list1 == null)
+                {
+                    Log.d(TAG, "没有信息在云端, list1" );
+                }else {
+                    temp_name = (String[]) list1.toArray(new String[list1.size()]);
+
+                    for (int i = 0; i < temp_name.length; i++) {
+                        guest_name.add(temp_name[i]);
+                    }
+                    Log.d(TAG, "查询到服务器端的任务为 " + list1.size() + "  " + " 条");
+                }
+
+                if(list2 == null)
+                {
+                    Log.d(TAG, "没有信息在云端, list2" );
+                }else {
+                    temp_number = (Integer[]) list2.toArray(new Integer[list2.size()]);
+
+                    for (int i = 0; i < temp_number.length; i++) {
+                        guest_number.add(temp_number[i]);
+                    }
+                    Log.d(TAG, "查询到服务器端的任务为 " + list2.size() + "  " + " 条");
+                }
+
+                //guest_name = userme.getGuestname();
+                //guest_number = userme.getGuestnumber();
+
+                if ((list1 == null && list2 == null)) {
                     downloadFlag = 2;
                     Log.d(TAG, "无原始数据 变化查询数据标志位 downloadFlag=" + downloadFlag);
-                } else if (guest_name.size() == guest_number.size() && guest_name.size() > 0) {
+                } else if (list1.size() == list2.size() && list1.size() > 0) {
                     downloadFlag = 1;
                     Log.d(TAG, "有数据 变化查询数据标志位 downloadFlag=" + downloadFlag);
                 }
@@ -216,22 +250,26 @@ public class WDGuestListActivity extends BaseActivity{
         BmobUser curUser = BmobUser.getCurrentUser(this, UserMe.class);
 
         Log.d(TAG, "查询数据标志位 downloadFlag=" + downloadFlag);
-        if(downloadFlag < 0 || downloadFlag > 1)//如果读取数据库不成功，就不要上传空数据到云端，以免冲掉数据
+        if(downloadFlag < 0 || downloadFlag == 2)//如果读取数据库不成功，就不要上传空数据到云端，以免冲掉数据
             return;
 
-        guest_name.clear();
-        guest_number.clear();
+        //if(downloadFlag == 1) {     //只有downloadFlag等于1时，这两个才需要清空，因为从云上下载了原始数据，而如果downloadFlag等于3时，是不需要清空的，因为这两个没有初始数据，而空list执行clear()会出错
+            guest_name.clear();
+            guest_number.clear();
+        //}
 
         for(int j=0;j<guest_group.size();j++)
         {
             for(int z=0;z<itemProcess.get(j).size();z++)
             {
                 if(itemProcess.get(j).size() > 0) {
-                    guest_name.add(j+"##"+itemProcess.get(j).get(z).split("--")[0]);
+                    Log.d(TAG, "j ="+j+";z="+z+";"+itemProcess.get(j).get(z));
+                    guest_name.add(j + "##" + itemProcess.get(j).get(z).split("--")[0]);
                     guest_number.add(Integer.parseInt(itemProcess.get(j).get(z).split("--")[1]));
                 }
             }
         }
+        downloadFlag = 1;
 
         UserMe query = new UserMe();
         query.setGuestname(guest_name);
@@ -379,7 +417,7 @@ public class WDGuestListActivity extends BaseActivity{
 
                             mlAdapter.notifyDataSetChanged();
 
-                            downloadFlag =1;
+                            downloadFlag = 3;
                         }
                     });
                     builder.show();

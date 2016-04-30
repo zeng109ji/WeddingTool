@@ -1,7 +1,9 @@
 package com.zj.weddingtool.weddingtool.ui.activity;
 
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 
@@ -10,6 +12,14 @@ import com.zj.weddingtool.R;
 import com.zj.weddingtool.base.ui.BaseActivity;
 import com.zj.weddingtool.base.util.ToastUtils;
 import com.umeng.analytics.MobclickAgent;
+import com.zj.weddingtool.weddingtool.model.UserMe;
+
+import java.util.ArrayList;
+
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.listener.GetListener;
+import cn.bmob.v3.listener.UpdateListener;
 
 /**
  *
@@ -17,6 +27,9 @@ import com.umeng.analytics.MobclickAgent;
  * @date 2016-4-19
  */
 public class WeddingToolActivity extends BaseActivity implements OnClickListener {
+
+    private String sPhone = new String();
+    private String uPhone = new String();
 
     @SuppressWarnings("unused")
     private static final String TAG = "WeddingToolActivity";
@@ -30,7 +43,7 @@ public class WeddingToolActivity extends BaseActivity implements OnClickListener
         setContentView(R.layout.activity_weddingtool);
 
      //   getSupportActionBar().setDisplayShowHomeEnabled(true);
-
+        findAll();
         initView();
     }
 
@@ -45,7 +58,72 @@ public class WeddingToolActivity extends BaseActivity implements OnClickListener
         aq.id(R.id.cv_campus_jiehunlijin).clicked(this);
     }
 
+    private void findAll() {
+        Log.d(TAG, "从服务器获取用户信息");
 
+        BmobUser curUser = BmobUser.getCurrentUser(this, UserMe.class);
+        BmobQuery<UserMe> query = new BmobQuery<>();
+        query.getObject(this, curUser.getObjectId(), new GetListener<UserMe>() {
+            @Override
+            public void onSuccess(UserMe userme) {
+                String temp_phone = new String();
+                String temp_phone1 = new String();
+
+                temp_phone = userme.getPhone();
+                temp_phone1 = userme.getUserphone();
+
+                if(temp_phone.length() > 0) {
+                    sPhone = temp_phone;
+
+                    if(temp_phone1 != null) {
+                        uPhone = temp_phone1;
+                        Log.d(TAG,"temp_phone1 != null :"+uPhone);
+                    }else {
+                        uPhone = temp_phone;
+                        Log.d(TAG,"temp_phone1 == null :"+uPhone);
+                    }
+                }else
+                {
+                    if(temp_phone1 != null) {
+                        uPhone = temp_phone1;
+                        Log.d(TAG,"uPhone != null :"+uPhone);
+                    }else {
+                        uPhone = temp_phone;
+                        Log.d(TAG,"uPhone == null :"+uPhone);
+                    }
+                }
+                Log.d(TAG,"sPhone"+sPhone);
+
+            }
+
+            @Override
+            public void onFailure(int i, String s) {
+                ToastUtils.showToast("从云端同步数据获取失败，请稍后再试");
+            }
+        });
+    }
+
+    private void saveAll(){
+        BmobUser curUser = BmobUser.getCurrentUser(this, UserMe.class);
+
+        UserMe query = new UserMe();
+        query.setPhone(sPhone);
+        if(uPhone != null)
+            query.setUserphone(uPhone);
+        query.update(this,curUser.getObjectId() , new UpdateListener() {    //query.save(this, new SaveListener() {
+            @Override
+            public void onSuccess() {
+                //   ToastUtils.showToast("添加数据成功，返回objectId为：");
+                Log.d(TAG, "更新数据成功 "+sPhone+";"+uPhone);
+            }
+
+            @Override
+            public void onFailure(int code, String arg0) {
+                // 添加失败
+                Log.d(TAG, "更新数据失败");
+            }
+        });
+    }
 
     private void campusJiehunrenwu() {
         Intent intent = new Intent(WeddingToolActivity.this, WDTaskActivity.class);
@@ -158,6 +236,7 @@ public class WeddingToolActivity extends BaseActivity implements OnClickListener
         super.onPause();
         MobclickAgent.onPageEnd("FinderActivity"); // 保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息
         MobclickAgent.onPause(this);
+        saveAll();
     }
 
     private long exitTime = 0;
@@ -168,6 +247,7 @@ public class WeddingToolActivity extends BaseActivity implements OnClickListener
             exitTime = System.currentTimeMillis();
         } else {
             finish();
+            saveAll();
         }
     }
 }
