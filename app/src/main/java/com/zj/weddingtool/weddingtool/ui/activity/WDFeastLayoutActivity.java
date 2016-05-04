@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -12,14 +11,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.BaseExpandableListAdapter;
+
 import com.zj.weddingtool.R;
 import com.zj.weddingtool.base.ui.BaseActivity;
 import com.zj.weddingtool.base.util.ToastUtils;
@@ -35,39 +38,41 @@ import cn.bmob.v3.listener.GetListener;
 import cn.bmob.v3.listener.UpdateListener;
 
 
-public class WDGuestListActivity extends BaseActivity{
-    public static final String TAG = "JHMingDanActivity";
+public class WDFeastLayoutActivity extends BaseActivity{
+    public static final String TAG = "JHJiuXiActivity";
 
     public ExListGuestAdapter mlAdapter;
 
     private ExpandableListView elv;//可伸缩列表
     private ListView lv;
-    private TextView guest_total_number;
+    private TextView feast_total_number;
 
     private List<HashMap<String, Object>> mlist = null;
 
     private int sp_item_select = -1;
 
-    private Integer guest_total;
+    private Integer feast_total;
 
     private ArrayList<ArrayList<String>> itemProcess = new ArrayList<ArrayList<String>>();
 
-    private ArrayList<String> guest_group=new ArrayList<String>();
+    private ArrayList<String>  feast_group=new ArrayList<String>();
     private ArrayList<String> guest_name=new ArrayList<String>();
     private ArrayList<Integer> guest_number=new ArrayList<Integer>();
 
     private Integer downloadFlag = -1;
 
+    private ArrayList<ArrayList<String>> generals = new ArrayList<ArrayList<String>>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_jhbinke);
+        setContentView(R.layout.activity_jhjiuxi);
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         for (int i = 0; i < getResources().getStringArray(R.array.guest_group).length; i++) {
-            guest_group.add(getResources().getStringArray(R.array.guest_group)[i]);
+            feast_group.add(getResources().getStringArray(R.array.guest_group)[i]);
         }
 
         findAll();//从服务器取数据需要时间，保证能完成数据下载的话最好延时一段时间，然后再调用initView()
@@ -97,25 +102,28 @@ public class WDGuestListActivity extends BaseActivity{
             return;
         }
         /* 实例化各个控件 */
-        elv = (ExpandableListView) findViewById(R.id.listView_binke_new);
+        elv = (ExpandableListView) findViewById(R.id.listView_jiuxi);
 
-        guest_total_number = (TextView) findViewById(R.id.jhbinke_heji_numb);
+        feast_total_number = (TextView) findViewById(R.id.jhjiuxi_heji_numb);
 
-        guest_total = 0;
-
+        feast_total = 0;
+/*
         if(downloadFlag > 1)
-            guest_total = 0;
+            feast_total = 0;
         else {
-            for (int i = 0; i < guest_name.size(); i++) {
-
-                guest_total += guest_number.get(i);//amymoney.toArray(new Integer[amymoney.size()])[i];
+            for (int i = 0; i < feast_group.size(); i++) {
+                for(int j = 0;j < guest_name.size();j++)
+                {
+                    if()
+                }
+                feast_total += guest_number.get(i);//amymoney.toArray(new Integer[amymoney.size()])[i];
             }
         }
-
-        guest_total_number.setText(String.valueOf(guest_total));
+*/
+        feast_total_number.setText(String.valueOf(feast_total));
 
         // 实例化自定义的MyAdapter
-        mlAdapter = new ExListGuestAdapter(this,itemProcess);
+        mlAdapter = new ExListGuestAdapter(this,itemProcess,feast_total_number);
 
         // 绑定Adapter
         elv.setAdapter(mlAdapter);
@@ -123,33 +131,43 @@ public class WDGuestListActivity extends BaseActivity{
         //elv.expandGroup(0);// 0 代表第一个Group，只用展开第一个分组就行
         elv.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
-            public boolean onChildClick(ExpandableListView expandableListView, View view, int groupPosition, int childPosition, long l) {
+            public boolean onChildClick(ExpandableListView expandableListView, View view, final int groupPosition, final int childPosition, long l) {
                 Log.d(TAG, "groupPosition = " + groupPosition + ";childPosition = " + childPosition);
                 LayoutInflater inflater = getLayoutInflater();
 
-                final ListGuestChildHolder holder = (ListGuestChildHolder) view.getTag();
+                final ListFeastChildHolder holder = (ListFeastChildHolder) view.getTag();
 
-                final View layout = inflater.inflate(R.layout.edit_guest_dialog,
-                        (ViewGroup) findViewById(R.id.edit_guest_dialog_view));
+                final View layout = inflater.inflate(R.layout.edit_feast_dialog,
+                        (ViewGroup) findViewById(R.id.edit_feast_dialog_view));
 
-                final int Gp = groupPosition;
-                final int Cp = childPosition;
+                //final int Gp = groupPosition;
+                //final int Cp = childPosition;
+
                 //修改人数和席位
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                builder.setTitle(holder.ItemGuestName.getText())
+                builder.setTitle("确定删除此桌?")
                         .setIcon(android.R.drawable.ic_dialog_info)
                         .setView(layout)
                         .setNegativeButton("取消", null);
                 builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface dialog, int which) {
-                        EditText change_number = (EditText) layout.findViewById(R.id.change_number_new);
 
-                        if (change_number.getText().toString().equals("")) {
-                            Toast.makeText(WDGuestListActivity.this, "修改人数失败，人数不能为空！", Toast.LENGTH_LONG).show();
-                        } else {
-                            itemProcess.get(Gp).set(Cp, itemProcess.get(Gp).get(Cp).split("--")[0] + "--" + change_number.getText().toString());
+                        int people_length = generals.get(groupPosition).get(childPosition).split(";").length;
+                        Log.d(TAG,"删除的长度是："+people_length);
+
+                        for(int i=0;i<itemProcess.get(groupPosition).size();i++)
+                        {
+                            for(int j=0;j<people_length;j++) {
+                                if (itemProcess.get(groupPosition).get(i).split("--")[0].equals(generals.get(groupPosition).get(childPosition).split(";")[j].split("\\(")[0]))
+                                {
+                                    itemProcess.get(groupPosition).set(i,itemProcess.get(groupPosition).get(i).split("--")[0] + "--" + itemProcess.get(groupPosition).get(i).split("--")[1] + "--" + "*");
+                                    Log.d(TAG, "i =" + i + ";j=" + j + ";" + itemProcess.get(groupPosition).get(i));
+                                }
+                            }
                         }
+
+                        generals.get(groupPosition).remove(childPosition);
 
                         mlAdapter.notifyDataSetChanged();
                     }
@@ -158,6 +176,8 @@ public class WDGuestListActivity extends BaseActivity{
 
                 return true;//true 响应点击，反之则不响应点击
             }
+
+
         });
 
     }
@@ -165,7 +185,7 @@ public class WDGuestListActivity extends BaseActivity{
     //填充数据
     private void initDate() {
 
-        for(int i=0;i<guest_group.size();i++)
+        for(int i=0;i<feast_group.size();i++)
         {
             ArrayList<String> tempStr = new ArrayList<String>();
             if(downloadFlag == 1)//有数据
@@ -174,7 +194,7 @@ public class WDGuestListActivity extends BaseActivity{
 
                     if (String.valueOf(i).equals(guest_name.get(j).split("##")[0])) {
                         //    Log.d(TAG,"i = "+i+";j = "+j+";guest_name[0] ="+guest_name.get(j).toString().split("##")[0]);
-                        tempStr.add(guest_name.get(j).split("##")[1] + "--" + guest_number.get(j).toString() + "--" + guest_name.get(j).split("##")[2]); //guest_name的第三段字符是标示所属席位的
+                        tempStr.add(guest_name.get(j).split("##")[1] + "--" + guest_number.get(j).toString() + "--" +guest_name.get(j).split("##")[2]);
                         //    Log.d(TAG, "tempStr.size()=" + tempStr.size() );
                     }
                 }
@@ -258,7 +278,7 @@ public class WDGuestListActivity extends BaseActivity{
             guest_number.clear();
         //}
 
-        for(int j=0;j<guest_group.size();j++)
+        for(int j=0;j<feast_group.size();j++)
         {
             for(int z=0;z<itemProcess.get(j).size();z++)
             {
@@ -308,18 +328,60 @@ public class WDGuestListActivity extends BaseActivity{
 
     class ExListGuestAdapter extends BaseExpandableListAdapter {
         private LayoutInflater mInflater = null;
-        private ArrayList<ArrayList<String>> generals;
+     //   private ArrayList<ArrayList<String>> generals = new ArrayList<ArrayList<String>>();
+        private ArrayList<ArrayList<String>> itemGuest;
         private Integer[] group_number = {0,0,0,0,0,0,0,0,0,0};
+        private TextView mfeast_number_tx = null;
+        private Integer final_number = 0;
 
-        public ExListGuestAdapter(Context context,ArrayList<ArrayList<String>> alist) {
+        public ExListGuestAdapter(Context context,ArrayList<ArrayList<String>> alist,TextView feast_number_tx) {
+
             mInflater = LayoutInflater.from(context);
-            generals = alist;
+
+            this.mfeast_number_tx = feast_number_tx;
+
+            this.itemGuest = alist;
+
+            for(int i=0;i<feast_group.size();i++) {
+                for (int j = 0; j < itemGuest.get(i).size(); j++) {
+                    //判断一下，最大尾数是多少，方便在新加酒席时，对来宾添加不重复的尾数
+                    if(!itemGuest.get(i).get(j).split("--")[2].equals("*") && Integer.parseInt(itemGuest.get(i).get(j).split("--")[2]) > final_number)
+                    {
+                        final_number = Integer.parseInt(itemGuest.get(i).get(j).split("--")[2]);
+                    }
+                }
+            }
+
+            for(int i=0;i<feast_group.size();i++)
+            {
+                ArrayList<String> feast_people = new ArrayList<String>();
+
+                for(int j=0;j<itemGuest.get(i).size();j++) {
+                    String temp = new String();
+                    for (int z = 0; z < itemGuest.get(i).size(); z++) {
+                        if (itemGuest.get(i).get(z).split("--")[2].equals("*")) {
+                            ;
+                        } else {
+
+                            if (itemGuest.get(i).get(z).split("--")[2].equals(String.valueOf(j))) {
+                                temp += itemGuest.get(i).get(z).split("--")[0] + "(" + itemGuest.get(i).get(z).split("--")[1] + "人);";
+                            }
+
+                        }
+                    }
+
+                    if(!temp.equals(""))
+                        feast_people.add(temp);
+                }
+
+                generals.add(feast_people);
+            }
         }
 
 
         @Override
         public int getGroupCount() {
-            return guest_group.size();
+            return feast_group.size();
         }
 
         @Override
@@ -329,7 +391,7 @@ public class WDGuestListActivity extends BaseActivity{
 
         @Override
         public Object getGroup(int groupPosition) {
-            return guest_group.get(groupPosition);
+            return feast_group.get(groupPosition);
         }
 
         @Override
@@ -356,65 +418,113 @@ public class WDGuestListActivity extends BaseActivity{
         public View getGroupView(int groupPosition, boolean isExpanded,
                                  View convertView, ViewGroup parent) {
 
-            ListGuestGroupHolder holder = null;
+            ListFeastGroupHolder holder = null;
             if (holder == null) {
-                holder = new ListGuestGroupHolder();
+                holder = new ListFeastGroupHolder();
 
                 if (convertView == null) {
-                    convertView = mInflater.inflate(R.layout.item_binke_list_tags, parent, false);
+                    convertView = mInflater.inflate(R.layout.item_jiuxi_list_tags, parent, false);
                 }
 
-                holder.ItemGuestGroup = (TextView) convertView.findViewById(R.id.guest_group_title);
-                holder.ItemCxAdd = (CheckBox) convertView.findViewById(R.id.guest_cx_add);
+                holder.ItemFeastGroup = (TextView) convertView.findViewById(R.id.feast_group_title);
+                holder.ItemCxAdd = (CheckBox) convertView.findViewById(R.id.feast_cx_add);
                 convertView.setTag(holder);
             } else {
-                holder = (ListGuestGroupHolder) convertView.getTag();
+                holder = (ListFeastGroupHolder) convertView.getTag();
 
             }
 
-            if(itemProcess.get(groupPosition).size()>0)
+            if(generals.get(groupPosition).size()>0)
             {
-                group_number[groupPosition]=0;
-                for(int i=0;i<itemProcess.get(groupPosition).size();i++)
-                {
-                    group_number[groupPosition] += Integer.parseInt(itemProcess.get(groupPosition).get(i).split("--")[1]);
-                }
+                group_number[groupPosition]=generals.get(groupPosition).size();
             }
 
             String temp = (String)getGroup(groupPosition);
-            holder.ItemGuestGroup.setText(temp+"("+group_number[groupPosition]+"位)");
+            holder.ItemFeastGroup.setText(temp+"("+group_number[groupPosition]+"桌)");
 
-            int temp_number = 0;
-            for(int j=0;j<group_number.length;j++)
+            int temp_total = 0;
+            for(int i=0;i<generals.size();i++)
             {
-                temp_number += group_number[j];
+               temp_total += generals.get(i).size();
             }
-            guest_total_number.setText(String.valueOf(temp_number));
+            mfeast_number_tx.setText(String.valueOf(temp_total));
+
+
 
             final int GP = groupPosition;
+
             holder.ItemCxAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    LayoutInflater inflater = getLayoutInflater();
-                    final View layout = inflater.inflate(R.layout.add_guest_dialog,
-                            (ViewGroup) findViewById(R.id.add_guest_dialog_view));
+                    final ArrayList<String> people_temp = new ArrayList<String>();
 
+                    final ArrayAdapter<String> mbb;
+                    LayoutInflater inflater = getLayoutInflater();
+                    final List<String> list = new ArrayList<String>();
+                    final View layout = inflater.inflate(R.layout.add_feast_dialog,
+                            (ViewGroup) findViewById(R.id.add_feast_dialog_view));
+                    final TextView people = (TextView) layout.findViewById(R.id.feast_guest_name);
+                    final Spinner set_group = (Spinner) layout.findViewById(R.id.set_guest_group);
+
+                    // mbb = ArrayAdapter.createFromResource(view.getContext(),R.array.guest_group,android.R.layout.simple_spinner_item);
+                    for (int i = 0; i < itemGuest.get(GP).size(); i++) {
+                        if (itemGuest.get(GP).get(i).split("--")[2].equals("*")) {    //只有没有被分桌的，才会显示在下拉列表里，否则一定是显示在每桌的列表里
+                            list.add(itemGuest.get(GP).get(i).split("--")[0] + "(" + Integer.parseInt(itemGuest.get(GP).get(i).split("--")[1]) + "人)");
+                        }
+                    }
+                    //mbb = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,generals.get(GP));
+                    mbb = new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, list);
+                    mbb.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    set_group.setAdapter(mbb);
+                    set_group.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                            Log.d(TAG, "select i=" + i + " " + list.get(i));
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+
+                        }
+                    });
+
+                    final Button btn_add = (Button) layout.findViewById(R.id.btn_add_to_feast);
+                    btn_add.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            int aa = (int) set_group.getSelectedItemId();
+                            String temps = new String();
+                            people_temp.add(list.get(aa));
+                            mbb.remove(set_group.getSelectedItem().toString());
+//                            list.remove(aa);
+                            for (int i = 0; i < people_temp.size(); i++)
+                                temps += (people_temp.get(i) + ";");
+
+                            people.setText(temps);
+                        }
+                    });
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                    builder.setTitle("新增宾客").setIcon(android.R.drawable.ic_dialog_info).setView(layout)
+                    builder.setTitle("新增酒席").setIcon(android.R.drawable.ic_dialog_info).setView(layout)
                             .setNegativeButton("取消", null);
                     builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
 
                         public void onClick(DialogInterface dialog, int which) {
-                            EditText name = (EditText) layout.findViewById(R.id.add_guest_name_new);
-                            EditText number = (EditText) layout.findViewById(R.id.add_guest_number_new);
 
-                            if (name.getText().toString().equals("") || number.getText().toString().equals("")) {
-                                Toast.makeText(WDGuestListActivity.this, "新增宾客失败，姓名和人数需全部填写！", Toast.LENGTH_LONG).show();
-                            } else {
-                                itemProcess.get(GP).add(name.getText().toString() + "--" + number.getText().toString() + "--" + "*"); // “*”的意思是没分席位之前,都是*这个符号
+                            generals.get(GP).add(people.getText().toString());
+
+                            final_number += 1;
+
+                            for (int j = 0; j < itemGuest.get(GP).size(); j++) {
+                                for (int z = 0; z < people_temp.size(); z++) {
+                                    if (itemGuest.get(GP).get(j).split("--")[0].equals(people_temp.get(z).split("\\(")[0])) {
+
+                                        itemGuest.get(GP).set(j, itemGuest.get(GP).get(j).split("--")[0] + "--" + itemGuest.get(GP).get(j).split("--")[1] + "--" + String.valueOf(final_number));
+
+                                        Log.d(TAG, "j =" + j + ";z=" + z + ";" + "final_number=" + final_number + ";"+itemGuest.get(GP).get(j));
+                                    }
+                                }
                             }
-
                             mlAdapter.notifyDataSetChanged();
 
                             downloadFlag = 3;
@@ -435,24 +545,22 @@ public class WDGuestListActivity extends BaseActivity{
         @Override
         public View getChildView(int groupPosition, int childPosition,
                                  boolean isLastChild, View convertView, ViewGroup parent) {
-            ListGuestChildHolder holder = null;
+            ListFeastChildHolder holder = null;
             if (holder == null) {
-                holder = new ListGuestChildHolder();
+                holder = new ListFeastChildHolder();
 
                 if (convertView == null) {
-                    convertView = mInflater.inflate(R.layout.item_binke_list, parent, false);
+                    convertView = mInflater.inflate(R.layout.item_jiuxi_list, parent, false);
                 }
 
-                holder.ItemGuestName = (TextView) convertView.findViewById(R.id.guest_name_child);
-                holder.ItemGuestNumber = (TextView) convertView.findViewById(R.id.guest_number_child);
+                holder.ItemFeastListName = (TextView) convertView.findViewById(R.id.feast_people_list);
                 convertView.setTag(holder);
             } else {
-                holder = (ListGuestChildHolder) convertView.getTag();
+                holder = (ListFeastChildHolder) convertView.getTag();
             }
 
             String temp = (String)getChild(groupPosition, childPosition);
-            holder.ItemGuestName.setText(temp.split("--")[0]);
-            holder.ItemGuestNumber.setText(temp.split("--")[1]);
+            holder.ItemFeastListName.setText(temp);
 
             return convertView;
         }
@@ -464,13 +572,12 @@ public class WDGuestListActivity extends BaseActivity{
 
     }
 
-    public static class ListGuestGroupHolder {
-        public TextView ItemGuestGroup;
+    public static class ListFeastGroupHolder {
+        public TextView ItemFeastGroup;
         public CheckBox ItemCxAdd;
     }
 
-    public static class ListGuestChildHolder {
-        public TextView ItemGuestName;
-        public TextView ItemGuestNumber;
+    public static class ListFeastChildHolder {
+        public TextView ItemFeastListName;
     }
 }

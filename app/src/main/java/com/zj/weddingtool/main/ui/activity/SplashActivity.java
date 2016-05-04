@@ -17,6 +17,8 @@ import com.zj.weddingtool.base.widget.TitanicTextView;
 import com.umeng.analytics.MobclickAgent;
 
 import com.bmob.pay.tool.BmobPay;
+import com.zj.weddingtool.weddingtool.ui.activity.WeddingToolActivity;
+
 import cn.bmob.push.BmobPush;
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobInstallation;
@@ -98,7 +100,8 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void goHome() {
-
+        Intent intent = new Intent(SplashActivity.this, com.zj.weddingtool.weddingtool.ui.activity.WeddingToolActivity.class);
+        startActivity(intent);
     }
 
     private void goLogin() {

@@ -156,6 +156,8 @@ public class WeddingToolActivity extends BaseActivity implements OnClickListener
     }
 
     private void campusJiehunjiuxi() {
+        Intent intent = new Intent(WeddingToolActivity.this, WDFeastLayoutActivity.class);
+        startActivity(intent);
     }
 
 

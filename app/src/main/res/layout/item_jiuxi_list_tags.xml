@@ -6,7 +6,7 @@
     android:minHeight="45dip">
 
     <TextView
-        android:id="@+id/guest_group_title"
+        android:id="@+id/feast_group_title"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_centerVertical="true"
@@ -15,7 +15,7 @@
         android:textColor="@color/font_green"/>
 
     <CheckBox
-        android:id="@+id/guest_cx_add"
+        android:id="@+id/feast_cx_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"

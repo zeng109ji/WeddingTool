@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/text_color_white"
+    android:orientation="vertical">
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/jhjiuxi_heji"
+            android:text="酒席合计："
+            android:textSize="22dp"
+            android:singleLine="true"
+            android:textColor="@color/color_yellow"
+            android:layout_alignTop="@+id/jhjiuxi_heji_numb"
+            android:layout_toStartOf="@+id/jhjiuxi_heji_numb" />
+
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:textSize="22dp"
+            android:singleLine="true"
+            android:id="@+id/jhjiuxi_heji_numb"
+            android:background="@drawable/shape_radius"
+            android:paddingLeft="5dp"
+            android:textColor="@color/color_yellow"
+            android:layout_marginEnd="68dp"
+            android:layout_below="@+id/itemshare_jiuxi"
+            android:layout_toStartOf="@+id/itemshare_jiuxi" />
+
+        <ImageButton
+            android:id="@+id/itemshare_jiuxi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/share"
+            android:layout_marginRight="8dp"
+            android:layout_gravity="right"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+
+    <ExpandableListView
+        android:id="@+id/listView_jiuxi"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:dividerHeight="10dp"
+        android:padding="10dp"
+        android:scrollbarStyle="outsideOverlay"
+        android:divider="#00000000"
+        >
+    </ExpandableListView>
+
+    <!-- android:cacheColorHint="#00000000"，这个设置拖动view时背景色
+         android:listSelector="#00000000" ，设置选中时的底色 -->
+
+ </LinearLayout>

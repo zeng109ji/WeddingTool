@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/add_feast_dialog_view"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:minWidth="200dp"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:paddingBottom="30dp"
+    android:paddingTop="30dp">
+<!--
+    <TextView
+        android:id="@+id/text_get_name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="45dp"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/text_change_money"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:hint="礼金"
+        android:numeric="integer"
+        android:maxLength="7"
+        android:editable="true"
+        android:drawableLeft="@drawable/money"
+        android:minHeight="45dp"
+        android:textSize="18sp" />
+ -->
+    <TextView
+        android:id="@+id/dialog_title_1"
+        android:text="本桌人数："
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="20dp"
+        android:textSize="12sp" />
+    <TextView
+        android:id="@+id/feast_guest_name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="45dp"
+        android:textSize="18sp" />
+
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/set_guest_group"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="加入本桌"
+        android:id="@+id/btn_add_to_feast"
+        android:layout_gravity="center_horizontal" />
+</LinearLayout>

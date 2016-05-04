@@ -133,7 +133,8 @@ public class WDDayProcessActivity extends BaseActivity {
         //{
         //    elv.expandGroup(i);
         //}
-        elv.expandGroup(0);// 0 代表第一个Group，只用展开第一个分组就行
+        //elv.expandGroup(0);// 0 代表第一个Group，只用展开第一个分组就行
+
         elv.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView expandableListView, View view, int groupPosition, int childPosition, long l) {
@@ -569,6 +570,9 @@ public class WDDayProcessActivity extends BaseActivity {
                     builder.show();
                 }
             });
+
+            if(generals.get(groupPosition).size() > 0)
+                elv.expandGroup(groupPosition);         //如果Group有子项，就展开Group
 
             return convertView;
  /*
