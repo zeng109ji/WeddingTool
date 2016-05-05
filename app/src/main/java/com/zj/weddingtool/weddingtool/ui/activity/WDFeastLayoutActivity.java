@@ -180,6 +180,10 @@ public class WDFeastLayoutActivity extends BaseActivity{
 
         });
 
+        for(int i=0;i<generals.size();i++) {
+            if (generals.get(i).size() > 0)
+                elv.expandGroup(i);         //如果Group有子项，就展开Group
+        }
     }
 
     //填充数据
@@ -437,7 +441,8 @@ public class WDFeastLayoutActivity extends BaseActivity{
             if(generals.get(groupPosition).size()>0)
             {
                 group_number[groupPosition]=generals.get(groupPosition).size();
-            }
+            }else
+                group_number[groupPosition]=0;
 
             String temp = (String)getGroup(groupPosition);
             holder.ItemFeastGroup.setText(temp+"("+group_number[groupPosition]+"桌)");
@@ -534,9 +539,6 @@ public class WDFeastLayoutActivity extends BaseActivity{
 
                 }
             });
-
-            if(generals.get(groupPosition).size() > 0)
-                elv.expandGroup(groupPosition);         //如果Group有子项，就展开Group
 
             return convertView;
 

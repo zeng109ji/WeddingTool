@@ -70,6 +70,8 @@ public class WDDayProcessActivity extends BaseActivity {
 
     private Integer downloadFlag = -1;
 
+    private List<ArrayList<String>> generals;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -169,6 +171,10 @@ public class WDDayProcessActivity extends BaseActivity {
             }
         });
 
+        for(int i=0;i<generals.size();i++) {
+            if (generals.get(i).size() > 0)
+                elv.expandGroup(i);         //如果Group有子项，就展开Group
+        }
     }
 
     //填充数据
@@ -402,7 +408,7 @@ public class WDDayProcessActivity extends BaseActivity {
         //        }
         //};
 
-        private List<ArrayList<String>> generals;
+        //private List<ArrayList<String>> generals;
 
         //子视图图片
 //        public int[][] generallogos = new int[][] {
@@ -415,9 +421,9 @@ public class WDDayProcessActivity extends BaseActivity {
 //                { R.drawable.lvmeng, R.drawable.luxun, R.drawable.sunquan,
 //                        R.drawable.zhouyu, R.drawable.sunshangxiang } };
 
-        public MyAdapter(Context context,List<ArrayList<String>> generals){
+        public MyAdapter(Context context,List<ArrayList<String>> general){
             mInflater = LayoutInflater.from(context);
-            this.generals = generals;
+            generals = general;
         }
 
         //自己定义一个获得textview的方法
@@ -570,9 +576,6 @@ public class WDDayProcessActivity extends BaseActivity {
                     builder.show();
                 }
             });
-
-            if(generals.get(groupPosition).size() > 0)
-                elv.expandGroup(groupPosition);         //如果Group有子项，就展开Group
 
             return convertView;
  /*

@@ -27,7 +27,7 @@ import java.io.IOException;
 public class testListToHTMLToPictureActivity extends BaseActivity{
     /** Called when the activity is first created. */
     private WebView webview;
-    public static final String TAG = "testListToHTMLToPictureActivity";
+    public static final String TAG = "HTMLToPictureActivity";
     private toHtml mhtml = new toHtml();
     private Button btn;
     @Override

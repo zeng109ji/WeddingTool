@@ -58,6 +58,8 @@ public class WDGuestListActivity extends BaseActivity{
 
     private Integer downloadFlag = -1;
 
+    private List<ArrayList<String>> generals;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -148,7 +150,7 @@ public class WDGuestListActivity extends BaseActivity{
                         if (change_number.getText().toString().equals("")) {
                             Toast.makeText(WDGuestListActivity.this, "修改人数失败，人数不能为空！", Toast.LENGTH_LONG).show();
                         } else {
-                            itemProcess.get(Gp).set(Cp, itemProcess.get(Gp).get(Cp).split("--")[0] + "--" + change_number.getText().toString());
+                            itemProcess.get(Gp).set(Cp, itemProcess.get(Gp).get(Cp).split("--")[0] + "--" + change_number.getText().toString() + "--" + itemProcess.get(Gp).get(Cp).split("--")[2]);
                         }
 
                         mlAdapter.notifyDataSetChanged();
@@ -159,6 +161,11 @@ public class WDGuestListActivity extends BaseActivity{
                 return true;//true 响应点击，反之则不响应点击
             }
         });
+
+        for(int i=0;i<generals.size();i++) {
+            if (generals.get(i).size() > 0)
+                elv.expandGroup(i);         //如果Group有子项，就展开Group
+        }
 
     }
 
@@ -308,7 +315,7 @@ public class WDGuestListActivity extends BaseActivity{
 
     class ExListGuestAdapter extends BaseExpandableListAdapter {
         private LayoutInflater mInflater = null;
-        private ArrayList<ArrayList<String>> generals;
+        //private ArrayList<ArrayList<String>> generals;
         private Integer[] group_number = {0,0,0,0,0,0,0,0,0,0};
 
         public ExListGuestAdapter(Context context,ArrayList<ArrayList<String>> alist) {
@@ -424,9 +431,6 @@ public class WDGuestListActivity extends BaseActivity{
 
                 }
             });
-
-            if(generals.get(groupPosition).size() > 0)
-                elv.expandGroup(groupPosition);         //如果Group有子项，就展开Group
 
             return convertView;
 
