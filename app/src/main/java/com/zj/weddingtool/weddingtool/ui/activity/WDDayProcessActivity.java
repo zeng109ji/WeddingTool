@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -55,9 +56,7 @@ public class WDDayProcessActivity extends BaseActivity {
     public MyAdapter maAdapter;
 
     private ExpandableListView elv;//可伸缩列表
-    private ListView lv;
-    private Button btn_edit;
-    private Button btn_share;
+    private ImageButton imbtn1_share;
 
     private List<HashMap<String, Object>> mlist = null;
 
@@ -110,9 +109,7 @@ public class WDDayProcessActivity extends BaseActivity {
 
         /* 实例化各个控件 */
         elv = (ExpandableListView) findViewById(R.id.listView_dangtian);
-
-        btn_edit = (Button) findViewById(R.id.itemedit);
-
+        imbtn1_share = (ImageButton) findViewById(R.id.itemshare_jiuxi);
         // 为Adapter准备数据
         mlist = new ArrayList<HashMap<String, Object>>();
 
@@ -171,10 +168,60 @@ public class WDDayProcessActivity extends BaseActivity {
             }
         });
 
+        elv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                final int groupPos = (Integer)view.getTag(R.id.list_tag_group);
+                final int childPos = (Integer)view.getTag(R.id.list_tag_child);
+                Log.i(TAG, "groupPos:" + groupPos + ",childPos:" + childPos);
+                if(childPos == -1){         //如果得到child位置的值为-1，则是操作group
+                    Log.i(TAG, "操作group组件");
+                }else{
+                    Log.i(TAG,"操作child组件");     //否则，操作child
+                    LayoutInflater inflater = getLayoutInflater();
+
+                    final View layout = inflater.inflate(R.layout.edit_day_process_dialog,
+                            (ViewGroup) findViewById(R.id.edit_day_process_dialog_view));
+
+                    ListChildTextHolder holder = (ListChildTextHolder) view.getTag();
+
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+
+                    builder.setTitle("是否删除 " + holder.ItemTime.getText().toString()+ "??").setIcon(android.R.drawable.ic_dialog_info).setView(layout)
+                            .setNegativeButton("取消", null);
+                    builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            itemProcess.get(groupPos).remove(childPos);
+
+                            maAdapter.notifyDataSetChanged();
+                        }
+                    });
+                    builder.show();
+                }
+                return true;
+            }
+        });
+
         for(int i=0;i<generals.size();i++) {
             if (generals.get(i).size() > 0)
                 elv.expandGroup(i);         //如果Group有子项，就展开Group
         }
+
+        ////////// 分享
+/*
+        imbtn1_share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Intent intent = new Intent(WDDayProcessActivity.this, ShareListToPictureActivity.class);
+                //startActivity(intent);
+            }
+        });
+*/
+        //////////
+
     }
 
     //填充数据
@@ -623,6 +670,8 @@ public class WDDayProcessActivity extends BaseActivity {
                 holder = (ListChildTextHolder) convertView.getTag();
             }
 
+            convertView.setTag(R.id.list_tag_group,groupPosition);
+            convertView.setTag(R.id.list_tag_child,childPosition);
 
             //TextView textView = getTextView();
             //textView.setText(getChild(groupPosition, childPosition).toString());

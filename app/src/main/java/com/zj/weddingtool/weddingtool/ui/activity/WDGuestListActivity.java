@@ -420,15 +420,14 @@ public class WDGuestListActivity extends BaseActivity{
                                 Toast.makeText(WDGuestListActivity.this, "新增宾客失败，姓名和人数需全部填写！", Toast.LENGTH_LONG).show();
                             } else {
                                 itemProcess.get(GP).add(name.getText().toString() + "--" + number.getText().toString() + "--" + "*"); // “*”的意思是没分席位之前,都是*这个符号
+
+                                downloadFlag = 3;
                             }
 
                             mlAdapter.notifyDataSetChanged();
-
-                            downloadFlag = 3;
                         }
                     });
                     builder.show();
-
                 }
             });
 

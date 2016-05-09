@@ -72,4 +72,8 @@
     <string name="add_yusuan_item">新增费用</string>
     <string name="del">删 除</string>
 
+
+    <item type="id" name="list_tag_group"></item>
+    <item type="id" name="list_tag_child"></item>
+
 </resources>

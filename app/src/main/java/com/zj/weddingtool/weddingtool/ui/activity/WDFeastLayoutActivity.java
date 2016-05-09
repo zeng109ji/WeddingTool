@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseExpandableListAdapter;
@@ -18,6 +20,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -44,12 +47,9 @@ public class WDFeastLayoutActivity extends BaseActivity{
     public ExListGuestAdapter mlAdapter;
 
     private ExpandableListView elv;//可伸缩列表
-    private ListView lv;
+
     private TextView feast_total_number;
-
-    private List<HashMap<String, Object>> mlist = null;
-
-    private int sp_item_select = -1;
+    private ImageButton imbtn_share;
 
     private Integer feast_total;
 
@@ -78,7 +78,6 @@ public class WDFeastLayoutActivity extends BaseActivity{
         findAll();//从服务器取数据需要时间，保证能完成数据下载的话最好延时一段时间，然后再调用initView()
 
         mHandler.sendEmptyMessageDelayed(0, 1000);
-        //initView();
 
     }
 
@@ -105,22 +104,10 @@ public class WDFeastLayoutActivity extends BaseActivity{
         elv = (ExpandableListView) findViewById(R.id.listView_jiuxi);
 
         feast_total_number = (TextView) findViewById(R.id.jhjiuxi_heji_numb);
-
         feast_total = 0;
-/*
-        if(downloadFlag > 1)
-            feast_total = 0;
-        else {
-            for (int i = 0; i < feast_group.size(); i++) {
-                for(int j = 0;j < guest_name.size();j++)
-                {
-                    if()
-                }
-                feast_total += guest_number.get(i);//amymoney.toArray(new Integer[amymoney.size()])[i];
-            }
-        }
-*/
         feast_total_number.setText(String.valueOf(feast_total));
+
+        imbtn_share = (ImageButton) findViewById(R.id.itemshare_jiuxi);
 
         // 实例化自定义的MyAdapter
         mlAdapter = new ExListGuestAdapter(this,itemProcess,feast_total_number);
@@ -184,6 +171,22 @@ public class WDFeastLayoutActivity extends BaseActivity{
             if (generals.get(i).size() > 0)
                 elv.expandGroup(i);         //如果Group有子项，就展开Group
         }
+
+        ////////// 分享
+
+        imbtn_share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(WDFeastLayoutActivity.this, ShareListToPictureActivity.class);
+                intent.putExtra("feast_froup", feast_group);
+                for(int i=0;i<feast_group.size();i++) {
+                    intent.putExtra("feast"+i, generals.get(i));
+                }
+                startActivity(intent);
+            }
+        });
+
+        //////////
     }
 
     //填充数据
@@ -197,7 +200,7 @@ public class WDFeastLayoutActivity extends BaseActivity{
                 for (int j = 0; j < guest_name.size(); j++) {
 
                     if (String.valueOf(i).equals(guest_name.get(j).split("##")[0])) {
-                        //    Log.d(TAG,"i = "+i+";j = "+j+";guest_name[0] ="+guest_name.get(j).toString().split("##")[0]);
+                            //Log.d(TAG,"i = "+i+";j = "+j+";guest_name[0] ="+guest_name.get(j).toString().split("##")[0]);
                         tempStr.add(guest_name.get(j).split("##")[1] + "--" + guest_number.get(j).toString() + "--" +guest_name.get(j).split("##")[2]);
                         //    Log.d(TAG, "tempStr.size()=" + tempStr.size() );
                     }
@@ -360,7 +363,7 @@ public class WDFeastLayoutActivity extends BaseActivity{
             {
                 ArrayList<String> feast_people = new ArrayList<String>();
 
-                for(int j=0;j<itemGuest.get(i).size();j++) {
+                for(int j=0;j<=final_number;j++) {//根据最大尾数来进行分组，保证所有的数据全部都能查到
                     String temp = new String();
                     for (int z = 0; z < itemGuest.get(i).size(); z++) {
                         if (itemGuest.get(i).get(z).split("--")[2].equals("*")) {
@@ -369,6 +372,7 @@ public class WDFeastLayoutActivity extends BaseActivity{
 
                             if (itemGuest.get(i).get(z).split("--")[2].equals(String.valueOf(j))) {
                                 temp += itemGuest.get(i).get(z).split("--")[0] + "(" + itemGuest.get(i).get(z).split("--")[1] + "人);";
+                                Log.d(TAG, "i = "+i+";j = "+j+";z = "+z+";"+itemGuest.get(i).get(z));
                             }
 
                         }
@@ -499,13 +503,20 @@ public class WDFeastLayoutActivity extends BaseActivity{
                         public void onClick(View view) {
                             int aa = (int) set_group.getSelectedItemId();
                             String temps = new String();
-                            people_temp.add(list.get(aa));
-                            mbb.remove(set_group.getSelectedItem().toString());
+                            if(list.size() <= 0)
+                            {
+                                Toast.makeText(WDFeastLayoutActivity.this, "宾客列表为空，无法添加到酒席！", Toast.LENGTH_LONG).show();
+                            }
+                            else
+                            {
+                                people_temp.add(list.get(aa));
+                                mbb.remove(set_group.getSelectedItem().toString());
 //                            list.remove(aa);
-                            for (int i = 0; i < people_temp.size(); i++)
-                                temps += (people_temp.get(i) + ";");
+                                for (int i = 0; i < people_temp.size(); i++)
+                                    temps += (people_temp.get(i) + ";");
 
-                            people.setText(temps);
+                                people.setText(temps);
+                            }
                         }
                     });
 
@@ -516,23 +527,28 @@ public class WDFeastLayoutActivity extends BaseActivity{
 
                         public void onClick(DialogInterface dialog, int which) {
 
-                            generals.get(GP).add(people.getText().toString());
+                            if (people.getText().toString().equals("")) {
+                                Toast.makeText(WDFeastLayoutActivity.this, "并未添加宾客到酒席！", Toast.LENGTH_LONG).show();
+                            } else {
+                                generals.get(GP).add(people.getText().toString());
 
-                            final_number += 1;
+                                final_number += 1;
 
-                            for (int j = 0; j < itemGuest.get(GP).size(); j++) {
-                                for (int z = 0; z < people_temp.size(); z++) {
-                                    if (itemGuest.get(GP).get(j).split("--")[0].equals(people_temp.get(z).split("\\(")[0])) {
+                                for (int j = 0; j < itemGuest.get(GP).size(); j++) {
+                                    for (int z = 0; z < people_temp.size(); z++) {
+                                        if (itemGuest.get(GP).get(j).split("--")[0].equals(people_temp.get(z).split("\\(")[0])) {
 
-                                        itemGuest.get(GP).set(j, itemGuest.get(GP).get(j).split("--")[0] + "--" + itemGuest.get(GP).get(j).split("--")[1] + "--" + String.valueOf(final_number));
+                                            itemGuest.get(GP).set(j, itemGuest.get(GP).get(j).split("--")[0] + "--" + itemGuest.get(GP).get(j).split("--")[1] + "--" + String.valueOf(final_number));
 
-                                        Log.d(TAG, "j =" + j + ";z=" + z + ";" + "final_number=" + final_number + ";"+itemGuest.get(GP).get(j));
+                                            Log.d(TAG, "j =" + j + ";z=" + z + ";" + "final_number=" + final_number + ";" + itemGuest.get(GP).get(j));
+                                        }
                                     }
                                 }
+
+                                downloadFlag = 3;
                             }
                             mlAdapter.notifyDataSetChanged();
 
-                            downloadFlag = 3;
                         }
                     });
                     builder.show();

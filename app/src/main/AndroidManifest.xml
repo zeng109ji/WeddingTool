@@ -282,6 +282,21 @@
         </activity>
 
         <activity
+            android:name=".weddingtool.ui.activity.ShareListToPictureActivity"
+            android:label="@string/campus_jhjiuxi"
+            android:screenOrientation="portrait"
+            android:uiOptions="splitActionBarWhenNarrow"
+            android:parentActivityName=".weddingtool.ui.activity.WDFeastLayoutActivity">
+            <!-- Parent activity meta-data to support API level 7+ -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".weddingtool.ui.activity.WDFeastLayoutActivity" />
+            <meta-data
+                android:name="android.support.UI_OPTIONS"
+                android:value="splitActionBarWhenNarrow" />
+        </activity>
+
+        <activity
             android:name=".weddingtool.ui.activity.WDGiftMoneyActivity"
             android:label="@string/campus_jhlijin"
             android:screenOrientation="portrait"
