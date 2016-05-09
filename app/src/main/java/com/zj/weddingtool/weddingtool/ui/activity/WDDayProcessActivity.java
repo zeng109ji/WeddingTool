@@ -47,6 +47,7 @@ import cn.bmob.v3.listener.UpdateListener;
 /**
  * @date 2016-4-19
  * @author zj
+ * 实现了ExpandableListView中的childlist的长按响应功能
  */
 public class WDDayProcessActivity extends BaseActivity {
 
@@ -149,15 +150,36 @@ public class WDDayProcessActivity extends BaseActivity {
                 final int Gp = groupPosition;
                 final int Cp = childPosition;
 
+                final EditText thing_change = (EditText) layout.findViewById(R.id.change_things);
+                final EditText people_change = (EditText) layout.findViewById(R.id.change_people);
+
+
+                thing_change.setText(itemProcess.get(groupPosition).get(childPosition).split("--")[1]);
+                people_change.setText(itemProcess.get(groupPosition).get(childPosition).split("--")[2]);
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
 
-                builder.setTitle("是否删除 " + holder.ItemTime.getText().toString()+ "?").setIcon(android.R.drawable.ic_dialog_info).setView(layout)
+                builder.setTitle("修改 " + holder.ItemTime.getText().toString()+ " 的事宜和人员").setIcon(android.R.drawable.ic_dialog_info).setView(layout)
                         .setNegativeButton("取消", null);
                 builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface dialog, int which) {
 
-                        itemProcess.get(Gp).remove(Cp);
+                        String thing_temp = new String();
+                        if(thing_change.getText().toString().equals("")) {
+                            thing_temp = " ";
+                        }else {
+                            thing_temp = thing_change.getText().toString();
+                        }
+
+                        String people_temp = new String();
+                        if(people_change.getText().toString().equals("")) {
+                            people_temp = " ";
+                        }else {
+                            people_temp = people_change.getText().toString();
+                        }
+
+                        itemProcess.get(Gp).set(Cp, itemProcess.get(Gp).get(Cp).split("--")[0] + "--" + thing_temp + "--" + people_temp);
 
                         maAdapter.notifyDataSetChanged();
                     }
@@ -173,22 +195,19 @@ public class WDDayProcessActivity extends BaseActivity {
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 final int groupPos = (Integer)view.getTag(R.id.list_tag_group);
                 final int childPos = (Integer)view.getTag(R.id.list_tag_child);
+
                 Log.i(TAG, "groupPos:" + groupPos + ",childPos:" + childPos);
+
                 if(childPos == -1){         //如果得到child位置的值为-1，则是操作group
                     Log.i(TAG, "操作group组件");
                 }else{
                     Log.i(TAG,"操作child组件");     //否则，操作child
-                    LayoutInflater inflater = getLayoutInflater();
-
-                    final View layout = inflater.inflate(R.layout.edit_day_process_dialog,
-                            (ViewGroup) findViewById(R.id.edit_day_process_dialog_view));
 
                     ListChildTextHolder holder = (ListChildTextHolder) view.getTag();
 
-
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-
-                    builder.setTitle("是否删除 " + holder.ItemTime.getText().toString()+ "??").setIcon(android.R.drawable.ic_dialog_info).setView(layout)
+                    builder.setTitle("是否删除 " + holder.ItemTime.getText().toString() + "??")
+                            .setIcon(android.R.drawable.ic_dialog_info)
                             .setNegativeButton("取消", null);
                     builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
 
@@ -233,12 +252,12 @@ public class WDDayProcessActivity extends BaseActivity {
             for(int j=0;j<mprocesschildTime.size();j++)
             {
 
-                if(mprocessGroup.get(i).toString().equals(mprocesschildTime.get(j).toString().split("--")[0])){
+                if(mprocessGroup.get(i).equals(mprocesschildTime.get(j).split("--")[0])){
                     Log.d(TAG,"i = "+i+";j = "+j);
                     //generals[i][j][0] = mprocesschildTime.get(j).toString().split("\\+")[1];
                     //generals[i][j][1] = mprocesschildThings.get(j).toString();
                     //generals[i][j][2] = mprocesschildTime.get(j).toString();
-                    tempStr.add(mprocesschildTime.get(j).toString().split("--")[1]+"--"+mprocesschildThings.get(j).toString()+"--"+mprocesschildPeople.get(j).toString());
+                    tempStr.add(mprocesschildTime.get(j).split("--")[1] + "--" + mprocesschildThings.get(j) + "--" + mprocesschildPeople.get(j));
                     Log.d(TAG, "tempStr.size()=" + tempStr.size() );
                 }
             }
@@ -439,53 +458,11 @@ public class WDDayProcessActivity extends BaseActivity {
 
     class MyAdapter extends BaseExpandableListAdapter {
         private LayoutInflater mInflater = null;
-        //设置组视图的图片
-//        int[] logos = new int[] { R.drawable.wei, R.drawable.shu,R.drawable.wu};
-        //设置组视图的显示文字
-        //private String[] generalsTypes = new String[] { "新人准备流程", "接亲流程" };
-        //子视图显示文字
-        //private String[][][] generals = new String[][][] {
-        //        {
-        //                {"7:00","新郎新娘起床准备化妆，跟妆师到位","XX,XX"},
-        //                {"8:00","新郎做好发型，跟拍摄像到位","XX,XX"}
-        //        },
-        //        {
-        //                {"10:00","婚车到位，婚车装饰到位","XX,XX"},
-        //                {"10:30","所有婚车到达新娘家","XX,XX"}
-        //        }
-        //};
-
-        //private List<ArrayList<String>> generals;
-
-        //子视图图片
-//        public int[][] generallogos = new int[][] {
-//                { R.drawable.xiahoudun, R.drawable.zhenji,
-//                        R.drawable.xuchu, R.drawable.guojia,
-//                        R.drawable.simayi, R.drawable.yangxiu },
-//                { R.drawable.machao, R.drawable.zhangfei,
-//                        R.drawable.liubei, R.drawable.zhugeliang,
-//                        R.drawable.huangyueying, R.drawable.zhaoyun },
-//                { R.drawable.lvmeng, R.drawable.luxun, R.drawable.sunquan,
-//                        R.drawable.zhouyu, R.drawable.sunshangxiang } };
 
         public MyAdapter(Context context,List<ArrayList<String>> general){
             mInflater = LayoutInflater.from(context);
             generals = general;
         }
-
-        //自己定义一个获得textview的方法
-        /**
-        TextView getTextView() {
-            AbsListView.LayoutParams lp = new AbsListView.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, 100);
-            TextView textView = new TextView(WDDayProcessActivity.this);
-            textView.setLayoutParams(lp);
-            textView.setGravity(Gravity.CENTER_VERTICAL);
-            textView.setPadding(36, 0, 0, 0);
-            textView.setTextSize(20);
-            textView.setTextColor(Color.BLACK);
-            return textView;
-        }
-        */
 
         @Override
         public int getGroupCount() {
@@ -541,6 +518,10 @@ public class WDDayProcessActivity extends BaseActivity {
                 holder = (ListGroupTextHolder) convertView.getTag();
 
             }
+
+            convertView.setTag(R.id.list_tag_group,groupPosition);//添加Tag，以便长按或是点击时，可以通过Tag值判断是group或是child列表项
+            convertView.setTag(R.id.list_tag_child,-1);
+
             String temp = (String)getGroup(groupPosition);
             holder.ItemTitle.setText(temp);
 
@@ -572,8 +553,8 @@ public class WDDayProcessActivity extends BaseActivity {
 
                             for(int i=0;i<generals.get(GP).size();i++)
                             {
-                                String hh = generals.get(GP).get(i).toString().split("--")[0].split(":")[0];
-                                String mm = generals.get(GP).get(i).toString().split("--")[0].split(":")[1];
+                                String hh = generals.get(GP).get(i).split("--")[0].split(":")[0];
+                                String mm = generals.get(GP).get(i).split("--")[0].split(":")[1];
 
                                 times.add(Integer.parseInt(hh) * 60 + Integer.parseInt(mm));
                             }
@@ -586,7 +567,7 @@ public class WDDayProcessActivity extends BaseActivity {
                             for(int j=0;j<generals.get(GP).size();j++)
                             {
                                 int temp = hour*60+minute;
-                                Log.d(TAG,"hour*60+minute="+temp+";times["+j+"]="+times.get(j)+";times.size()="+times.size()+";generals.get(GP).size()"+generals.get(GP).size());
+                                Log.d(TAG, "hour*60+minute=" + temp + ";times[" + j + "]=" + times.get(j) + ";times.size()=" + times.size() + ";generals.get(GP).size()" + generals.get(GP).size());
                                 if ((hour*60+minute)<=times.get(j) && j<=generals.get(GP).size())
                                 {
                                     curtimelist=j;
@@ -594,6 +575,21 @@ public class WDDayProcessActivity extends BaseActivity {
                                 }
 
                             }
+
+                            String thing_temp = new String();
+                            if(things.getText().toString().equals("")) {
+                                thing_temp = " ";
+                            }else {
+                                thing_temp = things.getText().toString();
+                            }
+
+                            String people_temp = new String();
+                            if(people.getText().toString().equals("")) {
+                                people_temp = " ";
+                            }else {
+                                people_temp = people.getText().toString();
+                            }
+
                             Log.d(TAG,"curtimelist="+curtimelist);
                             if (curtimelist > -1)
                             {
@@ -601,7 +597,7 @@ public class WDDayProcessActivity extends BaseActivity {
                              //   mprocesschildThings.add(curtimelist,things.getText().toString());
                              //   mprocesschildPeople.add(curtimelist,people.getText().toString());
 
-                                generals.get(GP).add(curtimelist,ctime+"--"+things.getText().toString()+"--"+people.getText().toString());
+                                generals.get(GP).add(curtimelist,ctime+"--"+thing_temp+"--"+people_temp);
 
                             }else
                             {
@@ -609,12 +605,12 @@ public class WDDayProcessActivity extends BaseActivity {
                              //   mprocesschildThings.add(things.getText().toString());
                              //   mprocesschildPeople.add(people.getText().toString());
 
-                                generals.get(GP).add(ctime+"--"+things.getText().toString()+"--"+people.getText().toString());
+                                generals.get(GP).add(ctime+"--"+thing_temp+"--"+people_temp);
                             }
-                            Log.d(TAG,""+generals.get(GP).get(0).toString());
-                            Log.d(TAG,""+generals.get(GP).get(0).toString().split("--")[0]);
-                            Log.d(TAG,""+generals.get(GP).get(0).toString().split("--")[1]);
-                            Log.d(TAG,""+generals.get(GP).get(0).toString().split("--")[2]);
+                            Log.d(TAG,""+generals.get(GP).get(0));
+                            Log.d(TAG,""+generals.get(GP).get(0).split("--")[0]);
+                            Log.d(TAG,""+generals.get(GP).get(0).split("--")[1]);
+                            Log.d(TAG,""+generals.get(GP).get(0).split("--")[2]);
 
                             MyAdapter.this.notifyDataSetChanged();
 
@@ -625,34 +621,11 @@ public class WDDayProcessActivity extends BaseActivity {
             });
 
             return convertView;
- /*
-            LinearLayout ll = new LinearLayout(WDDayProcessActivity.this);
-            ll.setOrientation(LinearLayout.HORIZONTAL);
-
-//             ImageView logo = new ImageView(ExpandableList.this);
-//             logo.setImageResource(logos[groupPosition]);
-//             logo.setPadding(50, 0, 0, 0);
-//             ll.addView(logo);
-
-            TextView textView = getTextView();
-            textView.setTextColor(Color.BLUE);
-            textView.setText(getGroup(groupPosition).toString());
-
-            ll.addView(textView);
-            ll.setPadding(100, 10, 10, 10);
-
-            return ll;*/
         }
 
         @Override
         public View getChildView(int groupPosition, int childPosition,
                                  boolean isLastChild, View convertView, ViewGroup parent) {
-            //LinearLayout ll = new LinearLayout(WDDayProcessActivity.this);
-            //ll.setOrientation(LinearLayout.HORIZONTAL);
-
-//             ImageView generallogo = new ImageView(TestExpandableListView.this);
-//             generallogo.setImageResource(generallogos[groupPosition][childPosition]);
-//             ll.addView(generallogo);
 
             ListChildTextHolder holder = null;
             if (holder == null) {
@@ -665,6 +638,7 @@ public class WDDayProcessActivity extends BaseActivity {
                 holder.ItemTime = (TextView) convertView.findViewById(R.id.process_time);
                 holder.ItemThings = (TextView) convertView.findViewById(R.id.process_things);
                 holder.ItemPeople = (TextView) convertView.findViewById(R.id.process_people);
+                holder.Itemremove = (ImageButton) convertView.findViewById(R.id.ibtn_remove_process);
                 convertView.setTag(holder);
             } else {
                 holder = (ListChildTextHolder) convertView.getTag();
@@ -678,10 +652,37 @@ public class WDDayProcessActivity extends BaseActivity {
             //ll.addView(textView);
 
             String temp = (String)getChild(groupPosition, childPosition);
-            holder.ItemTime.setText("时间    "+temp.split("--")[0]);
-            holder.ItemThings.setText("事宜    "+temp.split("--")[1]);
-            holder.ItemPeople.setText("人员    "+temp.split("--")[2]);
+            holder.ItemTime.setText(temp.split("--")[0]);
+            holder.ItemThings.setText(temp.split("--")[1]);
+            holder.ItemPeople.setText(temp.split("--")[2]);
 
+            final int GP = groupPosition;
+            final int CP = childPosition;
+
+            final ListChildTextHolder myholder = holder;
+            holder.Itemremove.setTag(childPosition);
+            holder.Itemremove.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                    builder.setTitle("确定要删除 " + myholder.ItemTime.getText() + "?")
+                            .setIcon(android.R.drawable.ic_dialog_info)
+                            .setNegativeButton("取消", null);
+                    builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            ToastUtils.showToast("删除 " + " " + myholder.ItemTime.getText() + " 项！");
+
+                            generals.get(GP).remove(CP);
+
+                            MyAdapter.this.notifyDataSetChanged();
+                        }
+                    });
+                    builder.show();
+                }
+            });
             return convertView;//ll;
         }
 
@@ -701,6 +702,7 @@ public class WDDayProcessActivity extends BaseActivity {
         public TextView ItemTime;
         public TextView ItemThings;
         public TextView ItemPeople;
+        public ImageButton Itemremove;
     }
 }
 

@@ -3,6 +3,7 @@
     android:layout_height="match_parent"
     android:orientation="horizontal"
     android:layout_marginTop="10dip"
+    android:descendantFocusability="blocksDescendants"
     android:minHeight="45dip">
 
     <TextView
@@ -28,4 +29,14 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"/>
 
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/img_btn_del_guest"
+        android:background="@drawable/calendar"
+        android:layout_marginRight="30dp"
+        android:focusable="false"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>

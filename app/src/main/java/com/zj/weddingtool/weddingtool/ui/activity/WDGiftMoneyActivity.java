@@ -17,8 +17,10 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.zj.weddingtool.R;
 import com.zj.weddingtool.base.ui.BaseActivity;
@@ -77,9 +79,7 @@ public class WDGiftMoneyActivity extends BaseActivity {
         findAll();//从服务器取数据需要时间，保证能完成数据下载的话最好延时一段时间，然后再调用initView()
 
 
-
         mHandler.sendEmptyMessageDelayed(0, 1000);
-        //initView();
 
 	}
 
@@ -141,25 +141,70 @@ public class WDGiftMoneyActivity extends BaseActivity {
                 final View layout = inflater.inflate(R.layout.edit_user_dialog,
                         (ViewGroup) findViewById(R.id.edit_user_dialog_view));
 
+                final EditText change_name = (EditText) layout.findViewById(R.id.text_change_name);
+                change_name.setText(mlijinname.get(position).toString());
+                final EditText change_money = (EditText) layout.findViewById(R.id.text_change_money);
+                change_money.setText(mlijin.get(position).toString());//设置新增宾客时，默认人数为1；
+
+                final ImageButton ibt_change_money_add = (ImageButton) layout.findViewById(R.id.ibtn_change_money_add);
+                final ImageButton ibt_change_money_remove = (ImageButton) layout.findViewById(R.id.ibtn_change_money_remove);
+
+                ibt_change_money_add.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int temp_number = Integer.parseInt(change_money.getText().toString());
+
+                        if(temp_number < 9999900)
+                            temp_number += 100;
+
+                        change_money.setText(String.valueOf(temp_number));
+                    }
+                });
+
+                ibt_change_money_remove.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int temp_number = Integer.parseInt(change_money.getText().toString());
+
+                        if(temp_number > 100)
+                            temp_number -= 100;
+                        else if(temp_number > 0 && temp_number < 100)
+                            temp_number = 0;
+
+                        change_money.setText(String.valueOf(temp_number));
+                    }
+                });
+
                 final int p = position;
 
                 final CheckBox tui = (CheckBox) layout.findViewById(R.id.ck_back_money);
                 tui.setChecked(mtuilijin.get(p));
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                builder.setTitle(holder.ItemLiJinName.getText() + " 礼金：￥" + holder.ItemLiJinMoney.getText())
+                builder.setTitle("修改状态！")
                         .setIcon(android.R.drawable.ic_dialog_info)
                         .setView(layout)
                         .setNegativeButton("取消", null);
                 builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface dialog, int which) {
-                        mtuilijin.set(p, tui.isChecked());
 
-                        HashMap<String, Object> map = new HashMap<String, Object>();
-                        map.put("lijin_name", holder.ItemLiJinName.getText());
-                        map.put("lijin_back", tui.isChecked());
-                        mlist.set(p, map);
+                        if (change_name.getText().toString().equals("") || change_money.getText().toString().equals("")) {
+                            Toast.makeText(WDGiftMoneyActivity.this, "修改失败，姓名不能为空！", Toast.LENGTH_LONG).show();
+                        } else {
+                            mlijinname.set(p,change_name.getText().toString());
+                            mlijin.set(p,Integer.parseInt(change_money.getText().toString()));
+                            mtuilijin.set(p, tui.isChecked());
+
+                            HashMap<String, Object> map = new HashMap<String, Object>();
+                            map.put("lijin_name", change_name.getText().toString());
+                            map.put("lijin_money", Integer.parseInt(change_money.getText().toString()));
+                            map.put("lijin_back", tui.isChecked());
+                            mlist.set(p, map);
+
+                            tx.setText("总共 " + String.valueOf(mlijinname.size()) + " 份礼金");
+
+                        }
 
                         mlAdapter.notifyDataSetChanged();
 
@@ -209,27 +254,63 @@ public class WDGiftMoneyActivity extends BaseActivity {
 
                 //final EditText inputServer = new EditText(view.getContext());
 
+                final EditText name = (EditText) layout.findViewById(R.id.text_name);
+                final EditText money = (EditText) layout.findViewById(R.id.text_money);
+                money.setText("100");//设置新增宾客时，默认人数为1；
+
+                final ImageButton ibt_money_add = (ImageButton) layout.findViewById(R.id.ibtn_money_add);
+                final ImageButton ibt_money_remove = (ImageButton) layout.findViewById(R.id.ibtn_money_remove);
+
+                ibt_money_add.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int temp_number = Integer.parseInt(money.getText().toString());
+
+                        if(temp_number < 9999900)
+                            temp_number += 100;
+
+                        money.setText(String.valueOf(temp_number));
+                    }
+                });
+
+                ibt_money_remove.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int temp_number = Integer.parseInt(money.getText().toString());
+
+                        if(temp_number > 100)
+                            temp_number -= 100;
+                        else if(temp_number > 0 && temp_number < 100)
+                            temp_number = 0;
+
+                        money.setText(String.valueOf(temp_number));
+                    }
+                });
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                builder.setTitle("增加新项目").setIcon(android.R.drawable.ic_dialog_info).setView(layout)
+                builder.setTitle("新增").setIcon(android.R.drawable.ic_dialog_info).setView(layout)
                         .setNegativeButton("取消", null);
                 builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface dialog, int which) {
-                        EditText name = (EditText)layout.findViewById(R.id.text_name);
-                        EditText money = (EditText)layout.findViewById(R.id.text_money);
 
-                        mlijinname.add(name.getText().toString());
-                        mlijin.add(Integer.parseInt(money.getText().toString()));
-                        mtuilijin.add(false);
+                        if (name.getText().toString().equals("") || money.getText().toString().equals("")) {
+                            Toast.makeText(WDGiftMoneyActivity.this, "新增失败，姓名必须填写！", Toast.LENGTH_LONG).show();
+                        } else {
+                            mlijinname.add(name.getText().toString());
+                            mlijin.add(Integer.parseInt(money.getText().toString()));
+                            mtuilijin.add(false);
 
-                        HashMap<String, Object> map = new HashMap<String, Object>();
-                        map.put("lijin_name", name.getText().toString());
-                        map.put("lijin_money", Integer.parseInt(money.getText().toString()));
-                        map.put("lijin_back",false);
-                        mlist.add(map);
+                            HashMap<String, Object> map = new HashMap<String, Object>();
+                            map.put("lijin_name", name.getText().toString());
+                            map.put("lijin_money", Integer.parseInt(money.getText().toString()));
+                            map.put("lijin_back", false);
+                            mlist.add(map);
 
-                        tx.setText("总共 " + String.valueOf(mlijinname.size()) + " 份礼金");
+                            tx.setText("总共 " + String.valueOf(mlijinname.size()) + " 份礼金");
 
+                            downloadFlag = 1;
+                        }
                         mlAdapter.notifyDataSetChanged();
 
                     }

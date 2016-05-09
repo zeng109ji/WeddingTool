@@ -266,25 +266,85 @@
     <string-array name="jhdangtian_liucheng1">
         <item>新人准备流程--7:00</item>
         <item>新郎新娘起床准备化妆，跟妆师到位</item>
-        <item>XX;XX</item>
+        <item>;</item>
     </string-array>
 
     <string-array name="jhdangtian_liucheng2">
-        <item>新人准备流程--8:00</item>
+        <item>新人准备流程--7:00</item>
         <item>新郎做好发型，跟拍摄像到位</item>
-        <item>XX;XX</item>
+        <item>;</item>
     </string-array>
 
     <string-array name="jhdangtian_liucheng3">
-        <item>接亲流程--10:00</item>
+        <item>接亲流程--7:30</item>
         <item>婚车到位，婚车装饰到位</item>
-        <item>XX;XX</item>
+        <item>;</item>
     </string-array>
 
     <string-array name="jhdangtian_liucheng4">
-        <item>接亲流程--10:30</item>
+        <item>接亲流程--8:30</item>
         <item>所有婚车到达新娘家</item>
-        <item>XX;XX</item>
+        <item>;</item>
+    </string-array>
+
+    <string-array name="jhdangtian_liucheng5">
+        <item>接亲流程--8:35</item>
+        <item>伴郎准备好鲜花、红包</item>
+        <item>;</item>
+    </string-array>
+
+    <string-array name="jhdangtian_liucheng6">
+        <item>接亲流程--8:35</item>
+        <item>新娘藏好新鞋、等待新郎伴郎</item>
+        <item>;</item>
+    </string-array>
+
+    <string-array name="jhdangtian_liucheng7">
+        <item>接亲流程--8:40</item>
+        <item>敲门、堵门、盘问、塞红包等游戏</item>
+        <item>;</item>
+    </string-array>
+
+    <string-array name="jhdangtian_liucheng8">
+        <item>接亲流程--9:00</item>
+        <item>新郎找新鞋、向女方家人承诺</item>
+        <item>;</item>
+    </string-array>
+
+    <string-array name="jhdangtian_liucheng9">
+        <item>接亲流程--9:30</item>
+        <item>新郎新娘喝甜汤，向新娘父母告别</item>
+        <item>;</item>
+    </string-array>
+
+    <string-array name="jhdangtian_liucheng10">
+        <item>接亲流程--9:40</item>
+        <item>车队出发</item>
+        <item>;</item>
+    </string-array>
+
+    <string-array name="jhdangtian_liucheng11">
+        <item>接亲流程--10:00</item>
+        <item>车队到达男方家（新人的新房）</item>
+        <item>;</item>
+    </string-array>
+
+    <string-array name="jhdangtian_liucheng12">
+        <item>接亲流程--10:10</item>
+        <item>新娘给男方父母敬茶</item>
+        <item>;</item>
+    </string-array>
+
+    <string-array name="jhdangtian_liucheng13">
+        <item>接亲流程--10:35</item>
+        <item>新郎新娘出发至酒店</item>
+        <item>;</item>
+    </string-array>
+
+    <string-array name="jhdangtian_liucheng14">
+        <item>接亲流程--11:30</item>
+        <item>婚庆到位，检查酒席、司仪、灯光音响等细节</item>
+        <item>;</item>
     </string-array>
 
     <array name="jhdangtian_liucheng">
@@ -292,6 +352,16 @@
         <item>@array/jhdangtian_liucheng2</item>
         <item>@array/jhdangtian_liucheng3</item>
         <item>@array/jhdangtian_liucheng4</item>
+        <item>@array/jhdangtian_liucheng5</item>
+        <item>@array/jhdangtian_liucheng6</item>
+        <item>@array/jhdangtian_liucheng7</item>
+        <item>@array/jhdangtian_liucheng8</item>
+        <item>@array/jhdangtian_liucheng9</item>
+        <item>@array/jhdangtian_liucheng10</item>
+        <item>@array/jhdangtian_liucheng11</item>
+        <item>@array/jhdangtian_liucheng12</item>
+        <item>@array/jhdangtian_liucheng13</item>
+        <item>@array/jhdangtian_liucheng14</item>
     </array>
 
     <string-array name="guest_group">

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -18,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -28,6 +30,7 @@ import com.zj.weddingtool.weddingtool.model.Line;
 import com.zj.weddingtool.weddingtool.model.UserMe;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -44,12 +47,8 @@ import cn.bmob.v3.listener.UpdateListener;
 public class WDBudgetActivity extends BaseActivity {
 
     public static final String TAG = "JHyusuanActivity";
-    public static final String EXTRA_KEY_USER_ID = "";
 
     public ListEditTextAdapter mlAdapter;
-    private UserMe showUser;
-    private UserMe curUser;
-
     private ListView lv;
     private TextView tx;
     private Button btn_add;
@@ -70,16 +69,9 @@ public class WDBudgetActivity extends BaseActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //for (int i = 0; i < getResources().getStringArray(R.array.jhyusuan).length; i++) {
-        //    mallarray.add(getResources().getStringArray(R.array.jhyusuan)[i]);
-        //}
-
         findAll();//从服务器取数据需要时间，保证能完成数据下载的话最好延时一段时间，然后再调用initView()
 
-
-
         mHandler.sendEmptyMessageDelayed(0, 1000);
-        //initView();
 
 	}
 
@@ -133,6 +125,8 @@ public class WDBudgetActivity extends BaseActivity {
             public void onClick(View view) {
 
                 final EditText inputServer = new EditText(view.getContext());
+                inputServer.setSingleLine();
+                inputServer.setFilters(new InputFilter[]{new InputFilter.LengthFilter(6)});//设置输入长度
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                 builder.setTitle("增加新项目").setIcon(android.R.drawable.ic_dialog_info).setView(inputServer)
                         .setNegativeButton("取消", null);
@@ -381,7 +375,9 @@ public class WDBudgetActivity extends BaseActivity {
 
                 holder.ItemYuSuanxiangmu = (TextView) convertView.findViewById(R.id.ysxiangmu);
                 holder.et = (EditText) convertView.findViewById(R.id.xiangmuedit);
-                holder.btn_del = (Button) convertView.findViewById(R.id.btn_del);
+                //holder.btn_del = (Button) convertView.findViewById(R.id.btn_del);
+                holder.btn_del = (ImageButton) convertView.findViewById(R.id.img_btn_del);
+
                 convertView.setTag(holder);
             } else {
                 holder = (ListEditTextHolder) convertView.getTag();
@@ -459,12 +455,20 @@ public class WDBudgetActivity extends BaseActivity {
                 holder.ItemYuSuanxiangmu.setText(itemString);
             }
 
+            ArrayList<String> orig_list = new ArrayList<String>();
+            for (int i = 0; i < getResources().getStringArray(R.array.jhyusuan).length; i++) {
+                orig_list.add(getResources().getStringArray(R.array.jhyusuan)[i]);
+            }
+
+            if(orig_list.contains(map.get(keyString[0]).toString()))
+                holder.btn_del.setVisibility(View.INVISIBLE);
+            else
+                holder.btn_del.setVisibility(View.VISIBLE);
 
             holder.btn_del.setTag(position);
             holder.btn_del.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ToastUtils.showToast("删除 " + p + " " + myholder.ItemYuSuanxiangmu.getText() + " 项！");
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                     builder.setTitle("确定要删除 "+ myholder.ItemYuSuanxiangmu.getText() + "?")
@@ -473,6 +477,8 @@ public class WDBudgetActivity extends BaseActivity {
                     builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
 
                         public void onClick(DialogInterface dialog, int which) {
+
+                            ToastUtils.showToast("删除 " + p + " " + myholder.ItemYuSuanxiangmu.getText() + " 项！");
 
                             mallarray.remove(p);
                             amyMoney.remove(p);
@@ -513,7 +519,8 @@ public class WDBudgetActivity extends BaseActivity {
 
         public TextView ItemYuSuanxiangmu;
         public EditText et;
-        public Button btn_del;
+     //   public Button btn_del;
+     public ImageButton btn_del;
     }
 
     private ArrayList<Line> createLines() {

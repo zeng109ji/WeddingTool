@@ -14,27 +14,54 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:hint="姓名"
-        android:minHeight="45dp"
-        android:textSize="18sp" />
-
-    <EditText
-        android:id="@+id/text_money"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:hint="礼金"
-        android:numeric="integer"
-        android:maxLength="7"
+        android:singleLine="true"
         android:editable="true"
-        android:drawableLeft="@drawable/money"
-        android:minHeight="45dp"
-        android:textSize="18sp" />
-<!--
-    <Button
-        android:id="@+id/btn_save_pop"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="保存" />
--->
+        android:maxLength="6"/>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <TextView
+            android:id="@+id/text_numm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="金额"
+            android:layout_marginLeft="3dp"
+            android:textSize="18sp"
+            android:layout_centerVertical="true" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ibtn_money_add"
+            android:background="@drawable/add_new"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_toStartOf="@+id/text_money"/>
+
+        <EditText
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/text_money"
+            android:background="@drawable/shape_radius"
+            android:numeric="integer"
+            android:maxLength="7"
+            android:editable="true"
+            android:gravity="center"
+            android:drawableLeft="@drawable/money"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ibtn_money_remove"
+            android:background="@drawable/remove_new"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toEndOf="@+id/text_money" />
+
+    </RelativeLayout>
+
 </LinearLayout>

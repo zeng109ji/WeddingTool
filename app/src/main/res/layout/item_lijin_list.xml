@@ -19,10 +19,9 @@
         android:layout_height="22dp"
         android:singleLine="true"
         android:textSize="15dp"
-        android:layout_centerVertical="true"
         android:drawableLeft="@drawable/money"
-        android:layout_toRightOf="@+id/lijin_name"
-        android:layout_toEndOf="@+id/lijin_name" />
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:id="@+id/lijin_back"

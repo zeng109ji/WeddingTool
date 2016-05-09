@@ -38,15 +38,50 @@
         android:id="@+id/add_guest_name_new"
         android:singleLine="true"
         android:editable="true"
-        android:maxLength="20"/>
+        android:maxLength="6"/>
 
-    <EditText
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/add_guest_number_new"
-        android:hint="人数"
-        android:numeric="integer"
-        android:maxLength="3"
-        android:editable="true"/>
+        android:layout_height="50dp">
+        <TextView
+            android:id="@+id/text_numm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="人数"
+            android:layout_marginLeft="3dp"
+            android:textSize="18sp"
+            android:layout_centerVertical="true" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ibtn_a_add"
+            android:background="@drawable/add_new"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_toStartOf="@+id/add_guest_number_new"/>
+
+        <EditText
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/add_guest_number_new"
+            android:background="@drawable/shape_radius"
+            android:numeric="integer"
+            android:maxLength="3"
+            android:editable="true"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ibtn_a_remove"
+            android:background="@drawable/remove_new"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toEndOf="@+id/add_guest_number_new" />
+
+    </RelativeLayout>
 
 </LinearLayout>

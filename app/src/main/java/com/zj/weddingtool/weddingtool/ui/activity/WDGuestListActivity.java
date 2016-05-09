@@ -16,6 +16,7 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,8 +46,6 @@ public class WDGuestListActivity extends BaseActivity{
     private TextView guest_total_number;
 
     private List<HashMap<String, Object>> mlist = null;
-
-    private int sp_item_select = -1;
 
     private Integer guest_total;
 
@@ -136,21 +135,54 @@ public class WDGuestListActivity extends BaseActivity{
 
                 final int Gp = groupPosition;
                 final int Cp = childPosition;
+
+                final EditText change_name = (EditText) layout.findViewById(R.id.change_name_new);
+                change_name.setText(itemProcess.get(Gp).get(Cp).split("--")[0]);
+                final EditText change_number = (EditText) layout.findViewById(R.id.change_number_new);
+                change_number.setText(itemProcess.get(Gp).get(Cp).split("--")[1]);
+
+                final ImageButton ibt_add = (ImageButton) layout.findViewById(R.id.ibtn_add);
+                final ImageButton ibt_remove = (ImageButton) layout.findViewById(R.id.ibtn_remove);
+
+                ibt_add.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int temp_number = Integer.parseInt(change_number.getText().toString());
+
+                        if(temp_number < 200)
+                            temp_number++;
+
+                        change_number.setText(String.valueOf(temp_number));
+                    }
+                });
+
+                ibt_remove.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int temp_number = Integer.parseInt(change_number.getText().toString());
+
+                        if(temp_number > 0)
+                            temp_number--;
+
+                        change_number.setText(String.valueOf(temp_number));
+                    }
+                });
+
                 //修改人数和席位
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                builder.setTitle(holder.ItemGuestName.getText())
+                builder.setTitle("修改姓名人数！")
                         .setIcon(android.R.drawable.ic_dialog_info)
                         .setView(layout)
                         .setNegativeButton("取消", null);
                 builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface dialog, int which) {
-                        EditText change_number = (EditText) layout.findViewById(R.id.change_number_new);
 
                         if (change_number.getText().toString().equals("")) {
                             Toast.makeText(WDGuestListActivity.this, "修改人数失败，人数不能为空！", Toast.LENGTH_LONG).show();
                         } else {
-                            itemProcess.get(Gp).set(Cp, itemProcess.get(Gp).get(Cp).split("--")[0] + "--" + change_number.getText().toString() + "--" + itemProcess.get(Gp).get(Cp).split("--")[2]);
+                        //    itemProcess.get(Gp).set(Cp, itemProcess.get(Gp).get(Cp).split("--")[0] + "--" + change_number.getText().toString() + "--" + itemProcess.get(Gp).get(Cp).split("--")[2]);
+                            itemProcess.get(Gp).set(Cp, change_name.getText().toString() + "--" + change_number.getText().toString() + "--" + itemProcess.get(Gp).get(Cp).split("--")[2]);
                         }
 
                         mlAdapter.notifyDataSetChanged();
@@ -389,7 +421,7 @@ public class WDGuestListActivity extends BaseActivity{
             }
 
             String temp = (String)getGroup(groupPosition);
-            holder.ItemGuestGroup.setText(temp+"("+group_number[groupPosition]+"位)");
+            holder.ItemGuestGroup.setText(temp + "(" + group_number[groupPosition] + "位)");
 
             int temp_number = 0;
             for(int j=0;j<group_number.length;j++)
@@ -406,6 +438,35 @@ public class WDGuestListActivity extends BaseActivity{
                     final View layout = inflater.inflate(R.layout.add_guest_dialog,
                             (ViewGroup) findViewById(R.id.add_guest_dialog_view));
 
+                    final EditText number = (EditText) layout.findViewById(R.id.add_guest_number_new);
+                    number.setText("1");//设置新增宾客时，默认人数为1；
+
+                    final ImageButton ibt_a_add = (ImageButton) layout.findViewById(R.id.ibtn_a_add);
+                    final ImageButton ibt_a_remove = (ImageButton) layout.findViewById(R.id.ibtn_a_remove);
+
+                    ibt_a_add.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            int temp_number = Integer.parseInt(number.getText().toString());
+
+                            if(temp_number < 200)
+                                temp_number++;
+
+                            number.setText(String.valueOf(temp_number));
+                        }
+                    });
+
+                    ibt_a_remove.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            int temp_number = Integer.parseInt(number.getText().toString());
+
+                            if(temp_number > 0)
+                                temp_number--;
+
+                            number.setText(String.valueOf(temp_number));
+                        }
+                    });
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                     builder.setTitle("新增宾客").setIcon(android.R.drawable.ic_dialog_info).setView(layout)
@@ -414,7 +475,6 @@ public class WDGuestListActivity extends BaseActivity{
 
                         public void onClick(DialogInterface dialog, int which) {
                             EditText name = (EditText) layout.findViewById(R.id.add_guest_name_new);
-                            EditText number = (EditText) layout.findViewById(R.id.add_guest_number_new);
 
                             if (name.getText().toString().equals("") || number.getText().toString().equals("")) {
                                 Toast.makeText(WDGuestListActivity.this, "新增宾客失败，姓名和人数需全部填写！", Toast.LENGTH_LONG).show();
@@ -430,6 +490,7 @@ public class WDGuestListActivity extends BaseActivity{
                     builder.show();
                 }
             });
+
 
             return convertView;
 
@@ -448,6 +509,7 @@ public class WDGuestListActivity extends BaseActivity{
 
                 holder.ItemGuestName = (TextView) convertView.findViewById(R.id.guest_name_child);
                 holder.ItemGuestNumber = (TextView) convertView.findViewById(R.id.guest_number_child);
+                holder.btn_del_guest = (ImageButton) convertView.findViewById(R.id.img_btn_del_guest);
                 convertView.setTag(holder);
             } else {
                 holder = (ListGuestChildHolder) convertView.getTag();
@@ -456,6 +518,51 @@ public class WDGuestListActivity extends BaseActivity{
             String temp = (String)getChild(groupPosition, childPosition);
             holder.ItemGuestName.setText(temp.split("--")[0]);
             holder.ItemGuestNumber.setText(temp.split("--")[1]);
+
+            final int GP = groupPosition;
+            final int CP = childPosition;
+
+            final ListGuestChildHolder myholder = holder;
+            holder.btn_del_guest.setTag(childPosition);
+            holder.btn_del_guest.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                    builder.setTitle("确定要删除 " + myholder.ItemGuestName.getText() + "?")
+                            .setIcon(android.R.drawable.ic_dialog_info)
+                            .setNegativeButton("取消", null);
+                    builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            ToastUtils.showToast("删除 " + " " + myholder.ItemGuestName.getText() + " 项！");
+
+                            generals.get(GP).remove(CP);
+
+                            mlAdapter.notifyDataSetChanged();
+                        }
+                    });
+                    builder.show();
+                }
+            });
+
+            if(itemProcess.get(groupPosition).size()>0)
+            {
+                group_number[groupPosition]=0;
+                for(int i=0;i<itemProcess.get(groupPosition).size();i++)
+                {
+                    group_number[groupPosition] += Integer.parseInt(itemProcess.get(groupPosition).get(i).split("--")[1]);
+                }
+            }
+
+            int temp_number = 0;
+            for(int j=0;j<group_number.length;j++)
+            {
+                temp_number += group_number[j];
+            }
+            guest_total_number.setText(String.valueOf(temp_number));
+
 
             return convertView;
         }
@@ -470,10 +577,12 @@ public class WDGuestListActivity extends BaseActivity{
     public static class ListGuestGroupHolder {
         public TextView ItemGuestGroup;
         public CheckBox ItemCxAdd;
+
     }
 
     public static class ListGuestChildHolder {
         public TextView ItemGuestName;
         public TextView ItemGuestNumber;
+        public ImageButton btn_del_guest;
     }
 }
