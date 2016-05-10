@@ -110,7 +110,7 @@ public class WDDayProcessActivity extends BaseActivity {
 
         /* 实例化各个控件 */
         elv = (ExpandableListView) findViewById(R.id.listView_dangtian);
-        imbtn1_share = (ImageButton) findViewById(R.id.itemshare_jiuxi);
+        imbtn1_share = (ImageButton) findViewById(R.id.itemshare_liucheng);
         // 为Adapter准备数据
         mlist = new ArrayList<HashMap<String, Object>>();
 
@@ -152,7 +152,6 @@ public class WDDayProcessActivity extends BaseActivity {
 
                 final EditText thing_change = (EditText) layout.findViewById(R.id.change_things);
                 final EditText people_change = (EditText) layout.findViewById(R.id.change_people);
-
 
                 thing_change.setText(itemProcess.get(groupPosition).get(childPosition).split("--")[1]);
                 people_change.setText(itemProcess.get(groupPosition).get(childPosition).split("--")[2]);
@@ -230,15 +229,20 @@ public class WDDayProcessActivity extends BaseActivity {
         }
 
         ////////// 分享
-/*
+
         imbtn1_share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent intent = new Intent(WDDayProcessActivity.this, ShareListToPictureActivity.class);
-                //startActivity(intent);
+                Intent intent = new Intent(WDDayProcessActivity.this, ShareListToPictureActivity.class);
+                intent.putExtra("share_number", 1);
+                intent.putExtra("process_group", mprocessGroup);
+                for(int i=0;i<mprocessGroup.size();i++) {
+                    intent.putExtra("process"+i, generals.get(i));
+                }
+                startActivity(intent);
             }
         });
-*/
+
         //////////
 
     }

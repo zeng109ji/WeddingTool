@@ -1,0 +1,40 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_marginTop="20dip"
+    android:gravity="center_vertical"
+    android:background="@drawable/shape_radius"
+    android:descendantFocusability="blocksDescendants"
+    android:minHeight="90dip">
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ibtn_remove_feast"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/calendar" />
+
+    <TextView
+        android:id="@+id/feast_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:singleLine="false"
+        android:textSize="15dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/feast_people_list_new"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="30dp"
+        android:singleLine="false"
+        android:textSize="15dp"
+        android:layout_below="@+id/ibtn_remove_feast"
+        android:layout_alignParentLeft="true"/>
+</RelativeLayout>

@@ -55,6 +55,9 @@ public class UserMe extends BmobUser implements Serializable {
     // 当日流程分组-人员
     private ArrayList<String> processchildPeople;
 
+    // 酒席详情
+    private ArrayList<String> feastinfo;
+
     // 礼金人
     private ArrayList<String> mylijinname;
 
@@ -163,6 +166,14 @@ public class UserMe extends BmobUser implements Serializable {
 
     public void setProcesschildPeople(ArrayList<String> processchildPeople) {
         this.processchildPeople = processchildPeople;
+    }
+
+    public ArrayList<String> getFeastinfo() {
+        return feastinfo;
+    }
+
+    public void setFeastinfo(ArrayList<String> feastinfo) {
+        this.feastinfo = feastinfo;
     }
 
     public ArrayList<String> getMylijinname() {

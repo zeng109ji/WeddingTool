@@ -36,10 +36,13 @@ public class ShareListToPictureActivity extends BaseActivity{
     /** Called when the activity is first created. */
     private WebView webview;
     public static final String TAG = "ShareToPictureActivity";
-    private toHtml mhtml = new toHtml();
+    private toHtml_Feast mhtml_feast = new toHtml_Feast();
+    private toHtml_process mhtml_process = new toHtml_process();
     private ArrayList<String> feast_group=new ArrayList<String>();
     private ArrayList<ArrayList<String>> generals = new ArrayList<ArrayList<String>>();
     private Bundle bundle;
+    private Integer share_num = -1;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,14 +52,26 @@ public class ShareListToPictureActivity extends BaseActivity{
 
         bundle = this.getIntent().getExtras();
 
-        feast_group=bundle.getStringArrayList("feast_froup");
-        if(feast_group.size()>0) {
-            Log.d(TAG,"feast_group is "+feast_group.size());
-            for (int i = 0; i < feast_group.size(); i++) {
-                generals.add(bundle.getStringArrayList("feast" + i));
+        share_num = bundle.getInt("share_number");
+
+        if(share_num == 0) {
+            feast_group = bundle.getStringArrayList("feast_froup");
+            if (feast_group.size() > 0) {
+                Log.d(TAG, "feast_group is " + feast_group.size());
+                for (int i = 0; i < feast_group.size(); i++) {
+                    generals.add(bundle.getStringArrayList("feast" + i));
+                }
+            }
+        }else if(share_num == 1)
+        {
+            feast_group = bundle.getStringArrayList("process_group");
+            if (feast_group.size() > 0) {
+                Log.d(TAG, "feast_group is " + feast_group.size());
+                for (int i = 0; i < feast_group.size(); i++) {
+                    generals.add(bundle.getStringArrayList("process" + i));
+                }
             }
         }
-
         // 2.2版本以上服务器取数据冲突解决办法========start=========
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectDiskReads().detectDiskWrites()
                 .detectNetwork() // or
@@ -68,7 +83,8 @@ public class ShareListToPictureActivity extends BaseActivity{
                 .penaltyLog().build());
         StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder().detectLeakedSqlLiteObjects()
                 .detectLeakedSqlLiteObjects().penaltyLog().penaltyDeath().build());
-        webview = new WebView(this);
+
+        //webview = new WebView(this);
 
         webview = (WebView) findViewById(R.id.picc_3d);
         // 设置WebView属性，能够执行Javascript脚本
@@ -122,11 +138,15 @@ public class ShareListToPictureActivity extends BaseActivity{
     }
 
     public String testCreateHTML() {
-        String name[] = { "桌子", "椅子", "其它" };
-        int num[] = { 1, 4, 1 };
-        float price[] = { 100, 25, 80 };
+        //String name[] = { "桌子", "椅子", "其它" };
+        //int num[] = { 1, 4, 1 };
+        //float price[] = { 100, 25, 80 };
         String path = "/storage/emulated/0/Pictures/save_html.html";
-        mhtml.convert(path, name, num, price);
+        if(share_num == 0) {
+            mhtml_feast.convert(path);
+        }else if(share_num == 1) {
+            mhtml_process.convert(path);
+        }
         return "file://" + path;
     }
 
@@ -185,14 +205,14 @@ public class ShareListToPictureActivity extends BaseActivity{
     }
 
 
-     class toHtml {
+     class toHtml_Feast {
         private static final String mHtmlHead = "<!DOCTYPE html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" /><title>无标题文档</title></head><body></table><p> </p>"
                 + "<table width=\"disp_width\" height=\"36\" border=\"1\">  <caption>  <strong>宾客席位</strong>  <br />  姓名：name    日期： day <br /> </caption> "
                 + "<tr> <td width=\"80\" height=\"30\">席位类别</td>    <td width=\"40\">桌数</td>    <td>宾客名单</td>  </tr>";
         private static final String mHtmlItem = "<tr> <td height=\"30\">name</td>    <td>price</td>    <td>num</td>  </tr>";
         private static final String mHtmlEnd = "</table></body></html>";
 
-        private void convert(String path, String name[], int num[], float price[]) {
+        private void convert(String path/*, String name[], int num[], float price[]*/) {
             DisplayMetrics  dm = new DisplayMetrics();
             //取得窗口属性
             getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -218,7 +238,84 @@ public class ShareListToPictureActivity extends BaseActivity{
 
                         mid = mid.replace("name", feast_group.get(i));
                         mid = mid.replace("price", "" + temp_total_feast);
-                        mid = mid.replace("num", "" + generals.get(i).get(j));
+                        mid = mid.replace("num", "" + generals.get(i).get(j).replace("--",";"));
+                        result += mid;
+                    }
+                }
+                /*
+                for (int i = 0; i < name.length; i++) {
+                    String mid = new String(mHtmlItem);
+                    mid = mid.replace("name", name[i]);
+                    mid = mid.replace("price", "" + num[i]);
+                    mid = mid.replace("num", "" + price[i]);
+                    result += mid;
+                }
+                for (int i = 0; i < 20; i++) {
+                    String mid = new String(mHtmlItem);
+                    mid = mid.replace("name", name[0]+i);
+                    mid = mid.replace("price", "" + num[0]);
+                    mid = mid.replace("num", "" + price[0]);
+                    result += mid;
+                }
+                */
+                result += mHtmlEnd;
+                saveStringToFile(path, result);
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+
+        private boolean saveStringToFile(String path, String content) {
+            // FileWriter fw = new FileWriter(path);
+            // MTDebug.startCount();
+            // ByteBuffer dst = ByteBuffer.allocate(content.length() * 4);
+
+            try {
+                FileOutputStream fos = new FileOutputStream(path);
+                // 把长宽写入头部
+                fos.write(content.getBytes());
+                fos.flush();
+                fos.close();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            return true;
+        }
+    }
+
+    class toHtml_process {
+        private static final String mHtmlHead = "<!DOCTYPE html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" /><title>无标题文档</title></head><body></table><p> </p>"
+                + "<table width=\"disp_width\" height=\"36\" border=\"1\">  <caption>  <strong>婚期当天流程</strong>  <br />  姓名：name    日期： day <br /> </caption> "
+                + "<tr> <td width=\"40\" height=\"30\">时间</td>    <td>事宜</td>    <td>人员</td>  </tr>";
+        private static final String mHtmlItem = "<tr> <td height=\"30\">name</td>    <td>price</td>    <td>num</td>  </tr>";
+        private static final String mHtmlEnd = "</table></body></html>";
+
+        private void convert(String path/*, String name[], int num[], float price[]*/) {
+            DisplayMetrics  dm = new DisplayMetrics();
+            //取得窗口属性
+            getWindowManager().getDefaultDisplay().getMetrics(dm);
+            //窗口的宽度
+            int screenWidth = dm.widthPixels;
+
+            Date date = new Date();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-d");
+            String currentDate = sdf.format(date);  //当期日期
+
+            try {
+                String result = mHtmlHead;
+                result = result.replace("disp_width",""+(screenWidth/3));
+                result = result.replace("name","username");
+                result = result.replace("day",currentDate);
+
+                for (int i = 0; i < feast_group.size(); i++) {
+                    for(int j = 0; j < generals.get(i).size();j++) {
+                        String mid = new String(mHtmlItem);
+
+                        mid = mid.replace("name", generals.get(i).get(j).split("--")[0]);
+                        mid = mid.replace("price", generals.get(i).get(j).split("--")[1]);
+                        mid = mid.replace("num", generals.get(i).get(j).split("--")[2]);
                         result += mid;
                     }
                 }
