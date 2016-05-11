@@ -20,6 +20,7 @@ import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.listener.GetListener;
 import cn.bmob.v3.listener.UpdateListener;
+import cn.sharesdk.framework.ShareSDK;
 
 /**
  *
@@ -41,7 +42,7 @@ public class WeddingToolActivity extends BaseActivity implements OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weddingtool);
-
+        ShareSDK.initSDK(this);
      //   getSupportActionBar().setDisplayShowHomeEnabled(true);
         findAll();
         initView();
@@ -248,6 +249,7 @@ public class WeddingToolActivity extends BaseActivity implements OnClickListener
             ToastUtils.showToast("再按一次退出他她工具");
             exitTime = System.currentTimeMillis();
         } else {
+            ShareSDK.stopSDK(this);
             finish();
             saveAll();
         }
