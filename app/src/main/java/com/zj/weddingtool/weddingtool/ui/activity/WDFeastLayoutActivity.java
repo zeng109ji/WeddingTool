@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.Editable;
+import android.text.Html;
+import android.text.Spanned;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -56,6 +58,7 @@ public class WDFeastLayoutActivity extends BaseActivity{
 
     private ImageView ivDeleteText;
     private EditText etSearch;
+    private String etSearchInput = "";
 
     private Integer feast_total;
 
@@ -232,6 +235,12 @@ public class WDFeastLayoutActivity extends BaseActivity{
 
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // TODO Auto-generated method stub
+                for(int i=0;i<generals.size();i++) {
+                    if (generals.get(i).size() > 0)
+                        elv.expandGroup(i);         //如果Group有子项，就展开Group
+                }
+                etSearchInput = String.valueOf(s);
+                mlAdapter.notifyDataSetChanged();
             }
 
             public void beforeTextChanged(CharSequence s, int start, int count,
@@ -553,9 +562,27 @@ public class WDFeastLayoutActivity extends BaseActivity{
                 holder = (ListFeastChildHolder) convertView.getTag();
             }
 
-            String temp = (String)getChild(groupPosition, childPosition);
-            holder.ItemFeastTitle.setText("第"+(childPosition+1)+"桌:共"+temp.split("--").length+"人");
-            holder.ItemFeastListName.setText(temp.replace("--"," "));
+            String temp = ((String)getChild(groupPosition, childPosition)).replace("--"," ");//将内容中的--转换成空格后，再赋值给temp；
+            holder.ItemFeastTitle.setText("第"+(childPosition+1)+"桌:共"+temp.split(" ").length+"人");
+
+            if (temp != null && temp.contains(etSearchInput)) {
+
+                int index = temp.indexOf(etSearchInput);
+
+                int len = etSearchInput.length();
+
+                Spanned temp_s = Html.fromHtml(temp.substring(0, index)
+                        + "<u><font color=#FF0000>"
+                        + temp.substring(index, index + len) + "</font></u>"
+                        + temp.substring(index + len, temp.length()));
+
+                holder.ItemFeastListName.setText(temp_s);
+            } else {
+                holder.ItemFeastListName.setText(temp);
+            }
+
+
+            //holder.ItemFeastListName.setText(temp.replace("--"," "));
 
             final int GP = groupPosition;
             final int CP = childPosition;
