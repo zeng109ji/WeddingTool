@@ -58,6 +58,7 @@ public class WDDayProcessActivity extends BaseActivity {
 
     private ExpandableListView elv;//可伸缩列表
     private ImageButton imbtn1_share;
+    private ImageButton imbtn2_reset;
 
     private List<HashMap<String, Object>> mlist = null;
 
@@ -111,6 +112,7 @@ public class WDDayProcessActivity extends BaseActivity {
         /* 实例化各个控件 */
         elv = (ExpandableListView) findViewById(R.id.listView_dangtian);
         imbtn1_share = (ImageButton) findViewById(R.id.itemshare_liucheng);
+        imbtn2_reset = (ImageButton) findViewById(R.id.itemreset_liucheng);
         // 为Adapter准备数据
         mlist = new ArrayList<HashMap<String, Object>>();
 
@@ -147,9 +149,14 @@ public class WDDayProcessActivity extends BaseActivity {
 
                 ListChildTextHolder holder = (ListChildTextHolder) view.getTag();
 
-                final int Gp = groupPosition;
-                final int Cp = childPosition;
+                final int GP = groupPosition;
+                final int CP = childPosition;
 
+                final TimePicker tp2 = (TimePicker)layout.findViewById(R.id.timePicker2);
+                tp2.setIs24HourView(true);
+
+                tp2.setCurrentHour(Integer.parseInt(itemProcess.get(groupPosition).get(childPosition).split("--")[0].split(":")[0]));
+                tp2.setCurrentMinute(Integer.parseInt(itemProcess.get(groupPosition).get(childPosition).split("--")[0].split(":")[1]));
                 final EditText thing_change = (EditText) layout.findViewById(R.id.change_things);
                 final EditText people_change = (EditText) layout.findViewById(R.id.change_people);
 
@@ -158,11 +165,43 @@ public class WDDayProcessActivity extends BaseActivity {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
 
-                builder.setTitle("修改 " + holder.ItemTime.getText().toString()+ " 的事宜和人员").setIcon(android.R.drawable.ic_dialog_info).setView(layout)
+                builder.setTitle("修改时间、事宜和人员").setIcon(android.R.drawable.ic_dialog_info).setView(layout)
                         .setNegativeButton("取消", null);
                 builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface dialog, int which) {
+
+                        int curtimelist = -1;
+
+                        int hour = tp2.getCurrentHour();
+                        int minute   = tp2.getCurrentMinute();
+                        String ctime = String.valueOf(hour)+":"+String.valueOf(minute);
+                        ArrayList<Integer> times = new ArrayList<Integer>();
+
+                        for(int i=0;i<generals.get(GP).size();i++)
+                        {
+                            String hh = generals.get(GP).get(i).split("--")[0].split(":")[0];
+                            String mm = generals.get(GP).get(i).split("--")[0].split(":")[1];
+
+                            times.add(Integer.parseInt(hh) * 60 + Integer.parseInt(mm));
+                        }
+
+                        if(minute == 0)
+                            ctime = String.valueOf(hour)+":00";
+                        else if(minute>0 && minute<10)
+                            ctime = String.valueOf(hour)+":0"+String.valueOf(minute);
+
+                        for(int j=0;j<generals.get(GP).size();j++)
+                        {
+                            int temp = hour*60+minute;
+                            Log.d(TAG, "hour*60+minute=" + temp + ";times[" + j + "]=" + times.get(j) + ";times.size()=" + times.size() + ";generals.get(GP).size()" + generals.get(GP).size());
+                            if ((hour*60+minute)<=times.get(j) && j<=generals.get(GP).size())
+                            {
+                                curtimelist=j;
+                                break;
+                            }
+
+                        }
 
                         String thing_temp = new String();
                         if(thing_change.getText().toString().equals("")) {
@@ -178,7 +217,21 @@ public class WDDayProcessActivity extends BaseActivity {
                             people_temp = people_change.getText().toString();
                         }
 
-                        itemProcess.get(Gp).set(Cp, itemProcess.get(Gp).get(Cp).split("--")[0] + "--" + thing_temp + "--" + people_temp);
+                        itemProcess.get(GP).remove(CP);//先删除当前页面，再按时间排序
+
+                        Log.d(TAG,"curtimelist="+curtimelist);
+                        if (curtimelist > -1)
+                        {
+                            itemProcess.get(GP).add(curtimelist,ctime+"--"+thing_temp+"--"+people_temp);
+                            //generals.get(GP).add(curtimelist,ctime+"--"+thing_temp+"--"+people_temp);
+                        }else
+                        {
+                            itemProcess.get(GP).add(ctime+"--"+thing_temp+"--"+people_temp);
+                            //generals.get(GP).add(ctime+"--"+thing_temp+"--"+people_temp);
+                        }
+
+
+                        //itemProcess.get(GP).set(CP, itemProcess.get(GP).get(CP).split("--")[0] + "--" + thing_temp + "--" + people_temp);
 
                         maAdapter.notifyDataSetChanged();
                     }
@@ -245,6 +298,49 @@ public class WDDayProcessActivity extends BaseActivity {
 
         //////////
 
+        ////////// 重置
+
+        imbtn2_reset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                builder.setTitle("确定重置流程?重置后,您所做的修改记录将全部清除！").setIcon(android.R.drawable.ic_dialog_info)
+                        .setNegativeButton("取消", null);
+                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        mprocesschildTime.clear();
+                        mprocesschildThings.clear();
+                        mprocesschildPeople.clear();
+                        itemProcess.clear();
+
+                        TypedArray typedArray1 = getResources().obtainTypedArray(R.array.jhdangtian_liucheng);
+                        for (int i = 0; i < getResources().getStringArray(R.array.jhdangtian_liucheng).length; i++) {
+                            mprocesschildTime.add(getResources().getStringArray(typedArray1.getResourceId(i,0))[0]);
+                        }
+
+                        TypedArray typedArray2 = getResources().obtainTypedArray(R.array.jhdangtian_liucheng);
+                        for (int i = 0; i < getResources().getStringArray(R.array.jhdangtian_liucheng).length; i++) {
+                            mprocesschildThings.add(getResources().getStringArray(typedArray2.getResourceId(i,0))[1]);
+                        }
+
+                        TypedArray typedArray3 = getResources().obtainTypedArray(R.array.jhdangtian_liucheng);
+                        for (int i = 0; i < getResources().getStringArray(R.array.jhdangtian_liucheng).length; i++) {
+                            mprocesschildPeople.add(getResources().getStringArray(typedArray3.getResourceId(i,0))[2]);
+                        }
+
+                        initDate();
+
+                        maAdapter.notifyDataSetChanged();
+
+                    }
+                });
+                builder.show();
+            }
+        });
+
+        //////////
     }
 
     //填充数据
@@ -395,9 +491,9 @@ public class WDDayProcessActivity extends BaseActivity {
         {
             for(int z=0;z<itemProcess.get(j).size();z++)
             {
-                mprocesschildTime.add(mprocessGroup.get(j)+"--"+itemProcess.get(j).get(z).toString().split("--")[0]);
-                mprocesschildThings.add(itemProcess.get(j).get(z).toString().split("--")[1]);
-                mprocesschildPeople.add(itemProcess.get(j).get(z).toString().split("--")[2]);
+                mprocesschildTime.add(mprocessGroup.get(j)+"--"+itemProcess.get(j).get(z).split("--")[0]);
+                mprocesschildThings.add(itemProcess.get(j).get(z).split("--")[1]);
+                mprocesschildPeople.add(itemProcess.get(j).get(z).split("--")[2]);
             }
         }
 
@@ -523,8 +619,8 @@ public class WDDayProcessActivity extends BaseActivity {
 
             }
 
-            convertView.setTag(R.id.list_tag_group,groupPosition);//添加Tag，以便长按或是点击时，可以通过Tag值判断是group或是child列表项
-            convertView.setTag(R.id.list_tag_child,-1);
+            convertView.setTag(R.id.list_tag_group, groupPosition);//添加Tag，以便长按或是点击时，可以通过Tag值判断是group或是child列表项
+            convertView.setTag(R.id.list_tag_child, -1);
 
             String temp = (String)getGroup(groupPosition);
             holder.ItemTitle.setText(temp);
@@ -537,14 +633,16 @@ public class WDDayProcessActivity extends BaseActivity {
                     final View layout = inflater.inflate(R.layout.add_day_process_dialog,
                             (ViewGroup) findViewById(R.id.add_day_process_dialog_view));
 
+                    final TimePicker tp = (TimePicker)layout.findViewById(R.id.timePicker1);
+                    tp.setIs24HourView(true);
+
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                     builder.setTitle("新增具体流程").setIcon(android.R.drawable.ic_dialog_info).setView(layout)
                             .setNegativeButton("取消", null);
                     builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
 
                         public void onClick(DialogInterface dialog, int which) {
-                            TimePicker tp = (TimePicker)layout.findViewById(R.id.timePicker1);
-                            tp.setIs24HourView(true);
+
                             EditText things = (EditText)layout.findViewById(R.id.text_things);
                             EditText people = (EditText)layout.findViewById(R.id.text_people);
 

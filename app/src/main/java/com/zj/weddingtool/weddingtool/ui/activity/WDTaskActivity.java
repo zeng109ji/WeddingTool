@@ -54,12 +54,15 @@ public class WDTaskActivity extends BaseActivity {
 
 
     private ListView lv;
-    private ListCheckboxAdapter mlAdapter;
+    public ListCheckboxAdapter mlAdapter;
     private List<HashMap<String, Object>> mlist = null;
     private List<String> mlist_tags = null;
     private Boolean[] acompleted;
 
     private Boolean findDataOK = false;
+
+    private TextView tx_undone;
+    private TextView tx_completed;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +114,10 @@ public class WDTaskActivity extends BaseActivity {
         }
         /* 实例化各个控件 */
         lv = (ListView) findViewById(R.id.listView_renwu);
+
+        tx_undone = (TextView) findViewById(R.id.tv_undone);
+        tx_completed = (TextView) findViewById(R.id.tv_completed);
+
         // 为Adapter准备数据
         //initDate();
 
@@ -129,7 +136,7 @@ public class WDTaskActivity extends BaseActivity {
         }
             // 实例化自定义的MyAdapter
             mlAdapter = new ListCheckboxAdapter(this, mlist, new String[] { "ren_wu_xijie", "item_checkbox1" },
-                            new int[] {R.id.ren_wu_xijie, R.id.item_checkbox1 },mlist_tags,acompleted);
+                            new int[] {R.id.ren_wu_xijie, R.id.item_checkbox1 },mlist_tags,acompleted,tx_undone,tx_completed);
 
             // 绑定Adapter
             lv.setAdapter(mlAdapter);
@@ -154,6 +161,8 @@ public class WDTaskActivity extends BaseActivity {
                         holder.ItemRenWuxijie.setTextColor(Color.parseColor("#999999"));
 
                     }
+
+                    mlAdapter.notifyDataSetChanged();
                 }
 
             });
@@ -252,9 +261,9 @@ public class WDTaskActivity extends BaseActivity {
         saveAll();
 	}
 
-    public static class ListCheckboxAdapter extends BaseAdapter {
+    private static class ListCheckboxAdapter extends BaseAdapter {
 
-        public static HashMap<Integer, Boolean> isSelected = null;
+        private static HashMap<Integer, Boolean> isSelected = null;
         private Context mcontext;
         private LayoutInflater mInflater = null;
         private List<HashMap<String, Object>> mmlist = null;
@@ -264,10 +273,15 @@ public class WDTaskActivity extends BaseActivity {
         private int idValue[] = null;// id值
         private Boolean[] myCompleted = null;
         private String keyString_tags[] = null;
-        public ListCheckboxAdapter(Context context, List<HashMap<String, Object>> list, String[] from, int[] to,List<String> list_tags, Boolean[] completed) {
+        private TextView atx_undone;
+        private TextView atx_completed;
+
+        public ListCheckboxAdapter(Context context, List<HashMap<String, Object>> list, String[] from, int[] to,List<String> list_tags, Boolean[] completed,TextView tv1,TextView tv2) {
             this.mcontext = context;
             this.mmlist = list;
             this.mmlist_tags = list_tags;
+            this.atx_undone = tv1;
+            this.atx_completed = tv2;
             mInflater = LayoutInflater.from(context);
             isSelected = new HashMap<Integer, Boolean>();
             this.myCompleted = completed;
@@ -337,13 +351,18 @@ public class WDTaskActivity extends BaseActivity {
                 holder = (ListCheckViewHolder) convertView.getTag();
             }
 
+            int checked_num = 0;
+            for (int i = 0; i < mmlist.size(); i++) {
+                if(getIsSelected().get(i))
+                    checked_num++;
+            }
+            atx_undone.setText("未完成任务 "+(mmlist.size() - mmlist_tags.size() - checked_num)+" 项");
+            atx_completed.setText("已完成任务 "+checked_num+" 项");
+
             HashMap<String, Object> map = mmlist.get(position);
             if (map != null) {
                 itemString = (String) map.get(keyString[0]);
                 holder.ItemRenWuxijie.setText(itemString);
-            //    if(itemString.endsWith(":")){//if(itemString == "G6" || itemString == "G12"){       //(holder.ItemRenWuxijie.getText() == "G6"){
-            //        holder.cb.setWidth(0);
-            //    }
             }
 
             final int p = position;
@@ -358,12 +377,13 @@ public class WDTaskActivity extends BaseActivity {
 
                     if (myholder.cb.isChecked() == true && myholder.ItemRenWuxijie.getCurrentTextColor() == Color.parseColor("#999999")) { //每次只点击checkbox时，同时修改本条的配套文字
                         myholder.ItemRenWuxijie.setTextColor(Color.parseColor("#3bbd79"));
-                    }
-                    else if(myholder.cb.isChecked() == false && myholder.ItemRenWuxijie.getCurrentTextColor() == Color.parseColor("#3bbd79"))
-                    {
+                    } else if (myholder.cb.isChecked() == false && myholder.ItemRenWuxijie.getCurrentTextColor() == Color.parseColor("#3bbd79")) {
                         myholder.ItemRenWuxijie.setTextColor(Color.parseColor("#999999"));
                     }
+
+                    ListCheckboxAdapter.this.notifyDataSetChanged();
                 }
+
             });
 
             holder.cb.setChecked(isSelected.get(position));
@@ -391,7 +411,7 @@ public class WDTaskActivity extends BaseActivity {
             return isSelected;
         }
 
-        public static void setIsSelected(HashMap<Integer, Boolean> isSelected) {
+        public void setIsSelected(HashMap<Integer, Boolean> isSelected) {
             ListCheckboxAdapter.isSelected = isSelected;
         }
     }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/create_user_dialog_view"
+    android:id="@+id/add_budget_dialog_view"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:minWidth="200dp"
@@ -8,12 +8,31 @@
     android:padding="10dp"
     android:paddingBottom="30dp"
     android:paddingTop="30dp">
-
-    <EditText
-        android:id="@+id/text_name"
+<!--
+    <TextView
+        android:id="@+id/text_get_name"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:hint="姓名"
+        android:minHeight="45dp"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/text_change_money"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:hint="礼金"
+        android:numeric="integer"
+        android:maxLength="7"
+        android:editable="true"
+        android:drawableLeft="@drawable/money"
+        android:minHeight="45dp"
+        android:textSize="18sp" />
+ -->
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/budget_title"
         android:singleLine="true"
         android:editable="true"
         android:maxLength="6"/>
@@ -23,10 +42,10 @@
         android:layout_width="match_parent"
         android:layout_height="50dp">
         <TextView
-            android:id="@+id/text_numm"
+            android:id="@+id/budget_money_tx"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="金额"
+            android:text="预算"
             android:layout_marginLeft="3dp"
             android:textSize="18sp"
             android:layout_centerVertical="true" />
@@ -34,39 +53,33 @@
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/ibtn_money_add"
+            android:id="@+id/ibtn_add_budget"
             android:background="@drawable/add_new"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
-            android:layout_toStartOf="@+id/text_money"/>
+            android:layout_toStartOf="@+id/budget_money_et"/>
 
         <EditText
-            android:layout_width="100dp"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
-            android:id="@+id/text_money"
+            android:id="@+id/budget_money_et"
             android:background="@drawable/shape_radius"
             android:numeric="integer"
             android:maxLength="7"
             android:editable="true"
             android:gravity="center"
-            android:drawableLeft="@drawable/money"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true" />
 
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/ibtn_money_remove"
+            android:id="@+id/ibtn_remove_budget"
             android:background="@drawable/remove_new"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:layout_toEndOf="@+id/text_money" />
+            android:layout_toEndOf="@+id/budget_money_et" />
 
     </RelativeLayout>
-    <CheckBox
-        android:id="@+id/create_ck_back_money"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="退还礼金" />
+
 </LinearLayout>

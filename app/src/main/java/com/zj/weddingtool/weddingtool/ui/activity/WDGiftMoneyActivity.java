@@ -260,6 +260,7 @@ public class WDGiftMoneyActivity extends BaseActivity {
 
                 final ImageButton ibt_money_add = (ImageButton) layout.findViewById(R.id.ibtn_money_add);
                 final ImageButton ibt_money_remove = (ImageButton) layout.findViewById(R.id.ibtn_money_remove);
+                final CheckBox tui = (CheckBox) layout.findViewById(R.id.create_ck_back_money);
 
                 ibt_money_add.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -299,12 +300,12 @@ public class WDGiftMoneyActivity extends BaseActivity {
                         } else {
                             mlijinname.add(name.getText().toString());
                             mlijin.add(Integer.parseInt(money.getText().toString()));
-                            mtuilijin.add(false);
+                            mtuilijin.add(tui.isChecked());
 
                             HashMap<String, Object> map = new HashMap<String, Object>();
                             map.put("lijin_name", name.getText().toString());
                             map.put("lijin_money", Integer.parseInt(money.getText().toString()));
-                            map.put("lijin_back", false);
+                            map.put("lijin_back", tui.isChecked());
                             mlist.add(map);
 
                             tx.setText("总共 " + String.valueOf(mlijinname.size()) + " 份礼金");

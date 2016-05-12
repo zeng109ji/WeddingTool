@@ -15,7 +15,7 @@
         android:textColor="@color/font_gray"/>
     <EditText
         android:id="@+id/xiangmuedit"
-        android:layout_width="125dp"
+        android:layout_width="100dp"
         android:layout_height="35dp"
         android:singleLine="true"
         android:textSize="15dp"
@@ -24,9 +24,8 @@
         android:maxLength="7"
         android:editable="true"
         android:layout_centerVertical="true"
-        android:drawableLeft="@drawable/money"
-        android:layout_toRightOf="@+id/ysxiangmu"
-        android:layout_toEndOf="@+id/ysxiangmu" />
+        android:layout_centerHorizontal="true"
+        android:drawableLeft="@drawable/money" />
 
     <ImageButton
         android:layout_width="wrap_content"

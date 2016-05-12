@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.zj.weddingtool.R;
 import com.zj.weddingtool.base.ui.BaseActivity;
@@ -123,28 +124,71 @@ public class WDBudgetActivity extends BaseActivity {
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                LayoutInflater inflater = getLayoutInflater();
+                final View layout = inflater.inflate(R.layout.add_budget_dialog,
+                        (ViewGroup) findViewById(R.id.add_budget_dialog_view));
 
-                final EditText inputServer = new EditText(view.getContext());
+                final EditText inputServer = (EditText) layout.findViewById(R.id.budget_title);
                 inputServer.setSingleLine();
                 inputServer.setFilters(new InputFilter[]{new InputFilter.LengthFilter(6)});//设置输入长度
+
+                final EditText budget_money = (EditText) layout.findViewById(R.id.budget_money_et);
+                budget_money.setText("1000");//设置新增宾客时，默认人数为1；
+
+                final ImageButton ibt_add_budget = (ImageButton) layout.findViewById(R.id.ibtn_add_budget);
+                final ImageButton ibt_remove_budget = (ImageButton) layout.findViewById(R.id.ibtn_remove_budget);
+
+                ibt_add_budget.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int temp_number = Integer.parseInt(budget_money.getText().toString());
+
+                        if(temp_number < 9999000)
+                            temp_number += 1000;
+
+                        budget_money.setText(String.valueOf(temp_number));
+                    }
+                });
+
+                ibt_remove_budget.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int temp_number = Integer.parseInt(budget_money.getText().toString());
+
+                        if(temp_number > 1000)
+                            temp_number -= 1000;
+                        else if(temp_number > 0 && temp_number < 1000)
+                            temp_number = 0;
+
+                        budget_money.setText(String.valueOf(temp_number));
+                    }
+                });
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                builder.setTitle("增加新项目").setIcon(android.R.drawable.ic_dialog_info).setView(inputServer)
+                builder.setTitle("增加新项目").setIcon(android.R.drawable.ic_dialog_info).setView(layout)
                         .setNegativeButton("取消", null);
                 builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface dialog, int which) {
-                        mallarray.add(inputServer.getText().toString());
-                        amymoney.add(0);
 
-                        Line linetemp = new Line();
-                        linetemp.setNum(mallarray.size()-1);
-                        mLines.add(linetemp);
-                        //addItem(p);
+                        if (inputServer.getText().toString().equals("") || budget_money.getText().toString().equals("")) {
+                            Toast.makeText(WDBudgetActivity.this, "新增失败，项目名必须填写！", Toast.LENGTH_LONG).show();
+                        } else {
 
-                        HashMap<String, Object> map = new HashMap<String, Object>();
-                        map.put("ysxiangmu", inputServer.getText().toString());
-                        map.put("xiangmuedit", 0);
-                        mlist.add(map);
+                            mallarray.add(inputServer.getText().toString());
+                            amymoney.add(Integer.parseInt(budget_money.getText().toString()));
+
+                            Line linetemp = new Line();
+                            linetemp.setNum(mallarray.size() - 1);
+                            linetemp.setText(budget_money.getText().toString());
+                            mLines.add(linetemp);
+                            //addItem(p);
+
+                            HashMap<String, Object> map = new HashMap<String, Object>();
+                            map.put("ysxiangmu", inputServer.getText().toString());
+                            map.put("xiangmuedit", Integer.parseInt(budget_money.getText().toString()));
+                            mlist.add(map);
+                        }
                         mlAdapter.notifyDataSetChanged();
                     }
                 });
@@ -207,8 +251,8 @@ public class WDBudgetActivity extends BaseActivity {
                 {
                     Log.d(TAG, "没有信息在云端1 "+ mallarray.size());
                     temp = new Integer[9];
-                    for (int i = 0; i < mallarray.size(); i++) {
-                        temp[i] = 0;
+                    for (int i = 0; i < getResources().getStringArray(R.array.jhyusuan_money).length; i++) {
+                        temp[i] = getResources().getIntArray(R.array.jhyusuan_money)[i];
                     }
                     Log.d(TAG, "没有信息在云端");
                 }else {

@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +23,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -50,6 +53,9 @@ public class WDFeastLayoutActivity extends BaseActivity{
 
     private TextView feast_total_number;
     private ImageButton imbtn_share;
+
+    private ImageView ivDeleteText;
+    private EditText etSearch;
 
     private Integer feast_total;
 
@@ -211,6 +217,37 @@ public class WDFeastLayoutActivity extends BaseActivity{
         });
 
         //////////
+
+        /////////////////////////////////////////////////////////////////////搜索
+        ivDeleteText = (ImageView) findViewById(R.id.ivDeleteText);
+        etSearch = (EditText) findViewById(R.id.etSearch);
+
+        ivDeleteText.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                etSearch.setText("");
+            }
+        });
+
+        etSearch.addTextChangedListener(new TextWatcher() {
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // TODO Auto-generated method stub
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+                // TODO Auto-generated method stub
+            }
+
+            public void afterTextChanged(Editable s) {
+                if (s.length() == 0) {
+                    ivDeleteText.setVisibility(View.GONE);
+                } else {
+                    ivDeleteText.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+        ///////////////////////////////////////////////////////////////////////////////////////////
     }
 
     //填充数据
@@ -412,8 +449,13 @@ public class WDFeastLayoutActivity extends BaseActivity{
             }else
                 group_number[groupPosition]=0;
 
+            int group_total_people=0;
+            for(int i=0;i<group_number[groupPosition];i++)
+            {
+                group_total_people += generals.get(groupPosition).get(i).split("--").length;
+            }
             String temp = (String)getGroup(groupPosition);
-            holder.ItemFeastGroup.setText(temp+"("+group_number[groupPosition]+"桌)");
+            holder.ItemFeastGroup.setText(temp+"("+group_number[groupPosition]+"桌/"+group_total_people+"人)");
 
             int temp_total = 0;
             for(int i=0;i<generals.size();i++)

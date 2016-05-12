@@ -79,6 +79,18 @@
         <item>婚      车</item>
     </string-array>
 
+    <integer-array name="jhyusuan_money">
+        <item>50000</item>
+        <item>5000</item>
+        <item>8000</item>
+        <item>10000</item>
+        <item>1000</item>
+        <item>2000</item>
+        <item>3000</item>
+        <item>2000</item>
+        <item>3000</item>
+    </integer-array>
+
     <string-array name="jhdengjichu1">
         <item>江岸区婚姻登记处</item>
         <item>江岸区绿缘路28号1楼</item>
