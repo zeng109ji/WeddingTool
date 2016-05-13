@@ -71,6 +71,7 @@
     <string name="renwu_xijie">name</string>
     <string name="add_yusuan_item">新增费用</string>
     <string name="del">删 除</string>
+    <string name="text_btn_exit">退出登录</string>
 
 
     <item type="id" name="list_tag_group"></item>

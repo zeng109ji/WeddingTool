@@ -1,0 +1,11 @@
+<menu xmlns:shop="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.zj.weddingtool.weddingtool.ui.activity.WeddingToolActivity">
+
+    <item
+        android:id="@+id/action_exit_log"
+        android:title="@string/text_btn_exit"
+        shop:showAsAction="ifRoom|withText" />
+
+</menu>

@@ -168,6 +168,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             String password = map.get(LoginManager.SP_KEY_PASSWORD);
             etUsername.setText(username);
             etPassword.setText(password);
+            if(!username.equals(""))//如果已有账户密码即可自动登陆
+                login();
         }
     }
 
