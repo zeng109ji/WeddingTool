@@ -62,6 +62,10 @@
     <!--允许应用读取低级别的系统日志文件 -->
     <uses-permission android:name="android.permission.READ_LOGS" />
 
+    <!-- BRTSDK需要的权限. -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
     <application
         android:name=".base.application.ToolApplication"
         android:allowBackup="true"
@@ -156,6 +160,11 @@
             android:name=".weddingtool.ui.activity.WeddingToolActivity"
             android:label="@string/title_activity_weddingtool">
         </activity>
+
+        <!-- BRTSDK服务. -->
+        <service
+            android:name="com.brtbeacon.sdk.BleService"
+            android:enabled="true" />
 
         <activity
             android:name=".weddingtool.ui.activity.WDTaskActivity"
@@ -365,6 +374,8 @@
             </intent-filter>
         </receiver>
         <!-- Bmob Push -->
+
+
 
         <!-- umeng sdk -->
         <meta-data

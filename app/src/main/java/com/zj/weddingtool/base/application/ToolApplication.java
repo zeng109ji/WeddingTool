@@ -2,11 +2,14 @@ package com.zj.weddingtool.base.application;
 
 import com.bmob.BmobConfiguration;
 import com.bmob.BmobPro;
+import com.brtbeacon.sdk.BRTBeaconManager;
+import com.brtbeacon.sdk.IBle;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.tencent.bugly.crashreport.CrashReport;
 
 public class ToolApplication extends BaseApplication {
 
+    private BRTBeaconManager beaconManager;
 
     @Override
     public void onCreate() {
@@ -28,9 +31,9 @@ public class ToolApplication extends BaseApplication {
         BmobPro.getInstance(this).initConfig(config);
     }
 
+
     private void initBugly() {
         CrashReport.initCrashReport(this, "900011135", false);
     }
-
 
 }

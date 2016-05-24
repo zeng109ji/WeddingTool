@@ -1,7 +1,9 @@
 package com.zj.weddingtool.weddingtool.ui.activity;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
-import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -12,6 +14,11 @@ import android.view.View.OnClickListener;
 import android.widget.TextView;
 
 import com.androidquery.AQuery;
+import com.brtbeacon.sdk.BRTBeacon;
+import com.brtbeacon.sdk.BRTBeaconManager;
+import com.brtbeacon.sdk.BRTThrowable;
+import com.brtbeacon.sdk.IBle;
+import com.brtbeacon.sdk.callback.BRTBeaconManagerListener;
 import com.zj.weddingtool.R;
 import com.zj.weddingtool.base.ui.BaseActivity;
 import com.zj.weddingtool.base.util.ToastUtils;
@@ -46,6 +53,13 @@ public class WeddingToolActivity extends BaseActivity implements OnClickListener
     private TextView tx_marryDate;
     private TextView tx_days;
 
+    private BRTBeaconManager beaconManager;
+
+    //通知管理器
+    private NotificationManager nm;
+    //通知显示内容
+    private PendingIntent pd;
+
     @SuppressWarnings("unused")
     private static final String TAG = "WeddingToolActivity";
 //    private static final int RESULT_REQUEST_AUTH_HBUT = 1007;
@@ -55,11 +69,27 @@ public class WeddingToolActivity extends BaseActivity implements OnClickListener
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        BTRSDK_init();
+
         setContentView(R.layout.activity_weddingtool);
         ShareSDK.initSDK(this);
+
      //   getSupportActionBar().setDisplayShowHomeEnabled(true);
         findAll();
         initView();
+
+        //ToolApplication app = (ToolApplication) getApplication();
+        //beaconManager = app.getBRTBeaconManager();
+        beaconManager.setBRTBeaconManagerListener(beaconManagerListener);
+    }
+
+    private void BTRSDK_init(){
+        //获取单例
+        beaconManager = BRTBeaconManager.getInstance(this);
+        // 注册应用 APPKEY申请:http://brtbeacon.com/main/index.shtml
+        beaconManager.registerApp("2871ba1a272d44ecbaf6eb68e588bfde");
+        // 开启Beacon扫描服务
+        beaconManager.startService();
     }
 
     private void initView() {
@@ -74,7 +104,94 @@ public class WeddingToolActivity extends BaseActivity implements OnClickListener
 
         tx_marryDate = (TextView) findViewById(R.id.first_marrydate);
         tx_days = (TextView) findViewById(R.id.first_marrydays);
+
+        nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        Intent intent = new Intent(this,WeddingToolActivity.class);
+        pd = PendingIntent.getActivity(WeddingToolActivity.this, 0, intent, 0);
     }
+
+    BRTBeaconManagerListener beaconManagerListener = new BRTBeaconManagerListener() {
+        //BASE Notification ID
+        private int Notification_ID_BASE = 110;
+        private Notification baseNF;
+
+        @Override
+        public void onUpdateBeacon(ArrayList<BRTBeacon> beacons) {
+            // Beacon信息更新
+            if(beacons.size()>0) {
+                for(int i=0;i<beacons.size();i++) {
+                    if(beacons.get(i).name!=null) {
+                        ToastUtils.showToast("设备" + beacons.get(i).name + "的电量为" + beacons.get(i).battery);
+
+                        //更新通知
+                        //比如状态栏提示有一条新短信，还没来得及查看，又来一条新短信的提示。
+                        //此时采用更新原来通知的方式比较。
+                        //(再重新发一个通知也可以，但是这样会造成通知的混乱，而且显示多个通知给用户，对用户也不友好)
+                        //baseNF.setLatestEventInfo(WeddingToolActivity.this, "Title02", "Content02", pd);
+                        //nm.notify(Notification_ID_BASE, baseNF);
+                    }
+                }
+            }
+        }
+
+        @Override
+        public void onNewBeacon(BRTBeacon beacon) {
+            // 发现一个新的Beacon
+            ToastUtils.showToast("新接入设备"+beacon.name);
+
+            //if(!"".equals(beacon.name)) {
+            if(beacon.name!=null) {
+                //新建状态栏通知
+                baseNF = new Notification();
+
+                //设置通知在状态栏显示的图标
+                baseNF.icon = R.drawable.ic_app_512;
+
+                //通知时在状态栏显示的内容
+                baseNF.tickerText = "新接入设备" + beacon.name;
+
+                //通知的默认参数 DEFAULT_SOUND, DEFAULT_VIBRATE, DEFAULT_LIGHTS.
+                //如果要全部采用默认值, 用 DEFAULT_ALL.
+                //此处采用默认声音
+                baseNF.defaults |= Notification.DEFAULT_SOUND;
+                baseNF.defaults |= Notification.DEFAULT_VIBRATE;
+                baseNF.defaults |= Notification.DEFAULT_LIGHTS;
+
+                //让声音、振动无限循环，直到用户响应
+                //baseNF.flags |= Notification.FLAG_INSISTENT;
+
+                //通知被点击后，自动消失
+                baseNF.flags |= Notification.FLAG_AUTO_CANCEL;
+
+                //点击'Clear'时，不清楚该通知(QQ的通知无法清除，就是用的这个)
+                //baseNF.flags |= Notification.FLAG_NO_CLEAR;
+
+
+                //第二个参数 ：下拉状态栏时显示的消息标题 expanded message title
+                //第三个参数：下拉状态栏时显示的消息内容 expanded message text
+                //第四个参数：点击该通知时执行页面跳转
+                baseNF.setLatestEventInfo(WeddingToolActivity.this, "Title01", "Content01", pd);
+
+                //发出状态栏通知
+                //The first parameter is the unique ID for the Notification
+                // and the second is the Notification object.
+                nm.notify(Notification_ID_BASE, baseNF);
+            }
+        }
+
+        @Override
+        public void onGoneBeacon(BRTBeacon beacon) {
+            // 一个Beacon消失
+            ToastUtils.showToast("离开设备"+beacon.name);
+        }
+
+        @Override
+        public void onError(BRTThrowable throwable) {
+            // 一个Beacon消失
+        }
+    };
+
+
 
     //填充数据
     private void initDater(String[] dates) {
@@ -304,6 +421,7 @@ public class WeddingToolActivity extends BaseActivity implements OnClickListener
 
     @Override
     public void onResume() {
+        beaconManager.startRanging();
         super.onResume();
         MobclickAgent.onPageStart("FinderActivity"); //统计页面
         MobclickAgent.onResume(this);          //统计时长
@@ -311,6 +429,7 @@ public class WeddingToolActivity extends BaseActivity implements OnClickListener
 
     @Override
     public void onPause() {
+        beaconManager.stopRanging();
         super.onPause();
         MobclickAgent.onPageEnd("FinderActivity"); // 保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息
         MobclickAgent.onPause(this);
@@ -350,4 +469,22 @@ public class WeddingToolActivity extends BaseActivity implements OnClickListener
             saveAll();
         }
     }
+
+    /**
+     * 创建Beacon连接需要传递此参数
+     * @return IBle
+     */
+    public IBle getIBle() {
+        return beaconManager.getIBle();
+    }
+
+    /**
+     * 获取Beacon管理对象
+     *
+     * @return BRTBeaconManager
+     */
+    public BRTBeaconManager getBRTBeaconManager() {
+        return beaconManager;
+    }
+
 }
